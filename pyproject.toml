@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "ordersflow xp"
+version = "0.1.0"
+description = ""
+authors = ["mg25683 <maciek.gluszak6@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
