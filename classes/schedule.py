@@ -1,18 +1,14 @@
-import os
-from datetime import datetime
-from typing import List, Dict
+from typing import Dict
 
 import pandas as pd
-
 import zzz_tools as t
-from classes.iData_framable import iDataFrameable
+from classes.break_info import BreakInfo
 from classes.exceptions import MyProgramException
+from classes.iData_framable import iDataFrameable
 from classes.merger import get_merger
 from classes.schedule_break import ScheduleBreak
-
 from classes.timeband import Timeband
 from classes.wantedness_info import WantednessInfo
-
 from zzz_projectTools import GluCannonColumnsList
 
 
@@ -93,12 +89,15 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
     for index, row in df.iterrows():
         wantedness_info = get_wantedness_info_from_row(row["wantedness"])
         block_id = row["blockId"]
-        schedule_break = ScheduleBreak(
+        break_info = BreakInfo(
             blockId=block_id,
-            row_index=index,
             date_time=row["dateTime"],
             ratecard=row["ratecard"],
             channel=row["channel"],
+        )
+
+        schedule_break = ScheduleBreak(
+            break_info=break_info,
             is_wanted=wantedness_info.is_wanted,
             subcampaign=wantedness_info.subcampaign,
             origin=wantedness_info.origin,

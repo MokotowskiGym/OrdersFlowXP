@@ -22,7 +22,7 @@ class Booking(iDataFrameable):
         breaks = t.Collection()
         for channel_break in self.channel_breaks:
             if channel_break.match_level == GluMatchLevel.NO_MATCH:
-                breaks.add(channel_break, channel_break.blockId)
+                breaks.add(channel_break, channel_break.break_info.blockId)
         return breaks
 
 

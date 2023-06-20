@@ -10,8 +10,8 @@ from zzz_enums import GluMatchLevel
 def match_channel_breaks_step1_id(channel_breaks, schedule_breaks: t.Collection):
     channel_break: ChannelBreak
     for channel_break in channel_breaks:
-        if channel_break.blockId in schedule_breaks.keys():
-            channel_break.schedule_break = schedule_breaks[channel_break.blockId]
+        if channel_break.break_info.blockId in schedule_breaks.keys():
+            channel_break.schedule_break = schedule_breaks[channel_break.break_info.blockId]
             channel_break.match_level = GluMatchLevel.ID
 
 
@@ -23,7 +23,7 @@ def match_channel_breaks_step2_timebands(channel_breaks: t.Collection, timebands
         except KeyError:
             channel_break.match_level  = GluMatchLevel.NO_TIMEBAND
 
-        if channel_break.blockId == 15107428494:
+        if channel_break.break_info.blockId == 15107428494:
             pass
         if channel_break.schedule_timeband is not None:
             potential_matches_ratecard = channel_break.get_potential_matches_ratecard()
