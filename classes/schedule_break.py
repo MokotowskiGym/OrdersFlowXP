@@ -16,3 +16,6 @@ class ScheduleBreak:
 
     def __str__(self):
         return str(self.blockId)
+
+    def book(self):
+        self.is_booked = True

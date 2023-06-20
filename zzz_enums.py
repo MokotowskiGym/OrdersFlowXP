@@ -12,3 +12,8 @@ class GluMatchLevel(Enum):
     TIME = "Time"
     RATECARD = "Ratecard"
     ID = "ID"
+
+class GLuOrigin(Enum):
+    Optimizer = "Optimizer"
+    Manual = "Manual"
+    Channel = "Channel"

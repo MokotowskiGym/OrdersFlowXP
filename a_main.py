@@ -2,6 +2,7 @@
 import zzz_ordersTools as ot
 import zzz_tools as t
 import c_matching as matching
+import d_process_schedule as ps
 from classes.merger import get_merger
 from classes.schedule import get_schedule
 from zzz_enums import *
@@ -25,6 +26,7 @@ def main():
 
     matching.match_channel_breaks_step1_id(booking.get_unmatched_channel_breaks(), schedule.schedule_breaks)
     matching.match_channel_breaks_step2_timebands(booking.get_unmatched_channel_breaks(), schedule.get_timebands_dict())
+    ps.process_schedule_after_booking(schedule.schedule_breaks, booking.channel_breaks)
     if do_export:
         t.export_df(booking.to_dataframe(), "channel breaks")
         t.export_df(schedule.to_dataframe(), "schedule")

@@ -202,6 +202,7 @@ def export_df(
     df_debug_mode: GluDfDebugMode = GluDfDebugMode.Nothing,
     debug_msg_base: str = "df '_1_' saved at:",
     export_dir: str = "",
+    export_index: bool = False,
 ):
     if export_dir == "":
         export_dir = ResultFolder().get_result_dir()
@@ -216,9 +217,9 @@ def export_df(
     file_name = df_caption + now_str + file_type.value
     file_path = os.path.join(export_dir, file_name)
     if file_type == GluFileType.CSV:
-        df.to_csv(file_path)
+        df.to_csv(file_path, index=export_index)
     elif file_type == GluFileType.XLSX:
-        df.to_excel(file_path, sheet_name=sheet_name)
+        df.to_excel(file_path, sheet_name=sheet_name, index=export_index)
     else:
         raise ValueError(f"File type {file_type} not supported")
 

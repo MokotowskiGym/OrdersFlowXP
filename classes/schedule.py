@@ -5,12 +5,14 @@ from typing import List, Dict
 import pandas as pd
 
 import zzz_tools as t
-from classes.data_framable import iDataFrameable
+from classes.iData_framable import iDataFrameable
 from classes.exceptions import MyProgramException
 from classes.merger import get_merger
 from classes.schedule_break import ScheduleBreak
+
 from classes.timeband import Timeband
 from classes.wantedness_info import WantednessInfo
+
 from zzz_projectTools import GluCannonColumnsList
 
 
@@ -45,10 +47,8 @@ class Schedule(iDataFrameable):
         self.df = df
         self.schedule_breaks = schedule_breaks
 
-
-
     def get_timebands_dict(self) -> Dict[str, Timeband]:
-        timebands_dict:Dict[str, Timeband] = {}
+        timebands_dict: Dict[str, Timeband] = {}
         for schedule_break in self.schedule_breaks.values():
             if schedule_break.tbId1 in timebands_dict.keys():
                 timeband1 = timebands_dict[schedule_break.tbId1]
@@ -71,7 +71,7 @@ class Schedule(iDataFrameable):
         return df
 
 
-def get_wantedness_info(wantedness) -> WantednessInfo:
+def get_wantedness_info_from_row(wantedness) -> WantednessInfo:
     if wantedness == "NotWanted":
         is_wanted: bool = False
         subcampaign = None
@@ -91,7 +91,7 @@ def get_wantedness_info(wantedness) -> WantednessInfo:
 def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
     breaks = t.Collection()
     for index, row in df.iterrows():
-        wantedness_info = get_wantedness_info(row["wantedness"])
+        wantedness_info = get_wantedness_info_from_row(row["wantedness"])
         block_id = row["blockId"]
         schedule_break = ScheduleBreak(
             blockId=block_id,
@@ -106,7 +106,7 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
             tbId1=row["tbId1"],
             tbId2=row["tbId2"],
         )
-        breaks.add(schedule_break,  block_id)
+        breaks.add(schedule_break, block_id)
 
     return breaks
 

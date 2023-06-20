@@ -4,7 +4,7 @@ import pandas
 import pandas as pd
 import zzz_tools as t
 from classes.channel_break import ChannelBreak, get_channel_break
-from classes.data_framable import iDataFrameable
+from classes.iData_framable import iDataFrameable
 from zzz_enums import GluSupplier, GluMatchLevel
 
 
@@ -14,9 +14,8 @@ class Booking(iDataFrameable):
         self.df = df
         self.channel_breaks = channel_breaks
 
-
     def to_dataframe(self):
-        df = pd.DataFrame(data=[vars(x) for x in self.channel_breaks])
+        df = pd.DataFrame(data=[x.serialize() for x in self.channel_breaks])
         return df
 
     def get_unmatched_channel_breaks(self):
@@ -25,6 +24,7 @@ class Booking(iDataFrameable):
             if channel_break.match_level == GluMatchLevel.NO_MATCH:
                 breaks.add(channel_break, channel_break.blockId)
         return breaks
+
 
 def get_channel_breaks(df: pd.DataFrame) -> List[ChannelBreak]:
     channel_breaks = []
