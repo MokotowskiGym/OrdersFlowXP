@@ -1,15 +1,14 @@
-from typing import List, Dict
+from typing import Dict
 
-import pandas as pd
-import zzz_tools as t
 import zzz_ordersTools as ot
+import zzz_tools as t
 from classes.channel_break import ChannelBreak
-from classes.schedule import get_schedule_breaks
 from classes.timeband import Timeband
 from zzz_enums import GluMatchLevel
 
 
 def match_channel_breaks_step1_id(channel_breaks, schedule_breaks: t.Collection):
+    channel_break: ChannelBreak
     for channel_break in channel_breaks:
         if channel_break.blockId in schedule_breaks.keys():
             channel_break.schedule_break = schedule_breaks[channel_break.blockId]
@@ -17,12 +16,12 @@ def match_channel_breaks_step1_id(channel_breaks, schedule_breaks: t.Collection)
 
 
 def match_channel_breaks_step2_timebands(channel_breaks: t.Collection, timebands_dict: Dict[str, Timeband]) -> None:
+    channel_break: ChannelBreak
     for channel_break in channel_breaks.values():
-        channel_break: ChannelBreak = channel_break
         try:
             channel_break.schedule_timeband = timebands_dict[channel_break.tbId]
         except KeyError:
-            channel_break.match_info = "No timeband"
+            channel_break.match_level  = GluMatchLevel.NO_TIMEBAND
 
         if channel_break.blockId == 15107428494:
             pass

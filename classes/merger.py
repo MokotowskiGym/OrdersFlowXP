@@ -1,12 +1,9 @@
-import traceback
-
 import pandas as pd
 
 from classes.exceptions import MyProgramException
 from classes.result_folder import ResultFolder
 from zzz_projectTools import GluCannonColumnsList
-from zzz_tools import confirm, export_df, GluFileType, GluDfDebugMode, check_cannon_columns
-from zzz_enums import *
+from zzz_tools import export_df, GluFileType, check_cannon_columns
 
 
 def get_merger(
@@ -95,8 +92,8 @@ class Merger:
         return dir
     def return_merged_df(self) -> pd.DataFrame:
         try:
-            merged_df = None
-            merged_df = pd.merge(
+
+            merged_df:pd.DataFrame = pd.merge(
                 self.df1,
                 self.df2,
                 left_on=self.left_key,
@@ -109,7 +106,6 @@ class Merger:
             self._clear(merged_df)
             check_cannon_columns(merged_df, self.cannon_columns_list, True )
         except Exception as e:
-            traceback.print_exc
             self.export_merge_info(merged_df, str(e))
             # print (f"Error in merge operation '{self.caption}\nFiles saved at:\n{self.get_export_dir()}")
             raise Exception (f"Error in merge operation '{self.caption}\nFiles saved at:\n{self.get_export_dir()}")

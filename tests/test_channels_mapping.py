@@ -1,9 +1,11 @@
 from unittest import TestCase
-import zzz_ordersTools as ot
+
 import pandas as pd
+import zzz_ordersTools as ot
 
 
 class TestChannelsMapping(TestCase):
+    json_path:str
     @classmethod
     def setUpClass(cls) -> None:
         cls.json_path = "./source/json channels.txt"

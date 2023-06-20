@@ -1,15 +1,13 @@
 import datetime as dt
-import tkinter as tk
 import os
+import tkinter as tk
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Union, Any
 
-from zzz_projectTools import *
 import pandas as pd
-from enum import Enum
-
 from classes.exceptions import MyProgramException
 from classes.result_folder import ResultFolder
+from zzz_projectTools import *
 
 
 class GluDfDebugMode(Enum):
@@ -270,5 +268,5 @@ def check_cannon_columns(
             raise ValueError(f"Missing cannon columns in the DataFrame: {', '.join(missing_columns)}")
 
         if drop_excess_columns:
-            columns_to_drop = set(df.columns) - set(cannon_columns)
-            df.drop(columns_to_drop, axis=1, inplace=True)
+            columns_to_drop:List[Any]=  list(set(df.columns) - set(cannon_columns))
+            df.drop( columns_to_drop, axis=1, inplace=True)

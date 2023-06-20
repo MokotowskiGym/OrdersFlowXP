@@ -8,6 +8,7 @@ class GluSupplier(Enum):
 
 
 class GluMatchLevel(Enum):
+    NO_TIMEBAND = "No timeband"
     NO_MATCH = "No match"
     TIME = "Time"
     RATECARD = "Ratecard"

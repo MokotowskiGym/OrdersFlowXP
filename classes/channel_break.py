@@ -1,5 +1,4 @@
 import datetime as dt
-from typing import Optional
 
 import zzz_tools as t
 from classes.iSerializable import iSerializable
@@ -15,9 +14,22 @@ class ChannelBreak(iSerializable):
         self.date_time = date_time
         self.tbId = tbId
         self.ratecard = ratecard
-        self.schedule_timeband: Optional[Timeband] = None
-        self.schedule_break: Optional[ScheduleBreak] = None
         self.match_level: GluMatchLevel = GluMatchLevel.NO_MATCH
+    @property
+    def schedule_timeband(self) -> Timeband:
+        return self._schedule_timeband
+
+    @schedule_timeband.setter
+    def schedule_timeband(self, value: Timeband) -> None:
+        self._schedule_timeband = value
+
+    @property
+    def schedule_break(self) -> ScheduleBreak:
+        return self._schedule_break
+
+    @schedule_break.setter
+    def schedule_break(self, value: ScheduleBreak) -> None:
+        self._schedule_break = value
 
     def get_closest_break(self, schedule_breaks: t.Collection) -> ScheduleBreak:
         schedule_break: ScheduleBreak
