@@ -7,9 +7,10 @@ from zzz_enums import GluMatchLevel
 
 
 class ChannelBreak(iSerializable):
-    def __init__(self, break_info:BreakInfo,  tbId: str):
+    def __init__(self, break_info:BreakInfo, subcampaign:int, tbId: str):
         self.break_info = break_info
         self.tbId = tbId
+        self.subcampaign = subcampaign
         self._match_level = GluMatchLevel.NO_MATCH
 
 
@@ -74,6 +75,7 @@ def get_channel_break(row) -> ChannelBreak:
 
     channel_break = ChannelBreak(
         break_info=break_info,
+        subcampaign=1, # TODO: ogarnąć subcampaign
         tbId=row["tbId"],
     )
     return channel_break

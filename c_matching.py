@@ -23,8 +23,9 @@ def match_channel_breaks_step2_timebands(channel_breaks: t.Collection, timebands
         except KeyError:
             channel_break.match_level  = GluMatchLevel.NO_TIMEBAND
 
-        if channel_break.break_info.blockId == 15107428494:
-            pass
+        # if channel_break.break_info.blockId == 15107428494:
+        #     pass
+
         if channel_break.schedule_timeband is not None:
             potential_matches_ratecard = channel_break.get_potential_matches_ratecard()
             if len(potential_matches_ratecard) > 0:

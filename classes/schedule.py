@@ -7,6 +7,7 @@ from classes.exceptions import MyProgramException
 from classes.iData_framable import iDataFrameable
 from classes.merger import get_merger
 from classes.schedule_break import ScheduleBreak
+from classes.status_info import StatusInfo
 from classes.timeband import Timeband
 from classes.wantedness_info import WantednessInfo
 from zzz_projectTools import GluCannonColumnsList
@@ -96,12 +97,14 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
             channel=row["channel"],
         )
 
-        schedule_break = ScheduleBreak(
-            break_info=break_info,
-            is_wanted=wantedness_info.is_wanted,
+        status_info = StatusInfo(
             subcampaign=wantedness_info.subcampaign,
             origin=wantedness_info.origin,
-            is_booked=row["bookedness"],
+            is_booked=row["bookedness"]
+        )
+        schedule_break = ScheduleBreak(
+            break_info=break_info,
+            status_info=status_info,
             tbId1=row["tbId1"],
             tbId2=row["tbId2"],
         )
