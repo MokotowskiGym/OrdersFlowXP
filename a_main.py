@@ -1,18 +1,18 @@
 # This is a sample Python script.
-import zzz_ordersTools as ot
-import zzz_tools as t
 import c_matching as matching
 import d_process_schedule as ps
-from classes.merger import get_merger
+import zzz_ordersTools as ot
+import zzz_tools as t
 from classes.schedule import get_schedule
 from zzz_enums import *
-from zzz_projectTools import GluCannonColumnsList
 
 
 def main():
     # print(calculate_circle_data(5, CircleDataType.PERIMETER))
     json_channels_path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\json channels.txt"
     json_copyLengths_path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\json copy lengths.txt"
+    # json_copyLengths_path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1a schedule 2022-10-06 112529 Schedule czysta - wrong channels.txt"
+
     do_export = True
 
     df_channelsMapping = ot.get_channels_df(json_channels_path)
@@ -28,8 +28,9 @@ def main():
     matching.match_channel_breaks_step2_timebands(booking.get_unmatched_channel_breaks(), schedule.get_timebands_dict())
     ps.process_schedule_after_booking(schedule.schedule_breaks, booking.channel_breaks)
     if do_export:
-        t.export_df(booking.to_dataframe(), "channel breaks")
-        t.export_df(schedule.to_dataframe(), "schedule")
+        t.export_df(booking.to_dataframe(GluExportFormat.ChannelBreak), "channel breaks")
+        t.export_df(schedule.to_dataframe(GluExportFormat.ScheduleBreak_minerwa), "schedule - minerwa", file_type=  t.GluFileType.CSV)
+        t.export_df(schedule.to_dataframe(GluExportFormat.ScheduleBreak_rozkminki), "schedule - rozkminki")
         # t.export_df(schedule.df, "1a schedule_processed")
         # t.export_df(booking.df, "1b booking_processed")
         # # t.export_df(df_matching, "2 matching")

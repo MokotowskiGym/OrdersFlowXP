@@ -1,8 +1,7 @@
 import datetime as dt
 import os
 import tkinter as tk
-from enum import Enum
-from typing import List, Union, Any
+from typing import List, Union, Any, Set
 
 import pandas as pd
 from classes.exceptions import MyProgramException
@@ -57,28 +56,33 @@ class Collection(dict):
 
     def get_first_value(self):
         return next(iter(self.values()))
-def get_cannon_columns_list(cannon_columns_list: GluCannonColumnsList) -> List[str]:
-    list_booking_org = "blockId dateTime channelOrg ratecard".split()
-    list_booking_processed = list_booking_org + "channel supplier channelGroup tbId".split()
-    list_scheduleMatching = "blockId dateTime channel ratecard wantedness tbId1 tbId2 bookedness".split()
-    list_scheduleFull = "blockId dateTime channel ratecard blockType_mod blockType_org tbId bookedness wantedness freeTime grpTg_01 grpTg_02 grpTg_50 grpTg_98 grpTg_99 positionCode programme scheduleInfo".split()
-    if cannon_columns_list == GluCannonColumnsList.BookingOrg:
-        list = list_booking_org
-    elif cannon_columns_list == GluCannonColumnsList.BookingProcessed:
-        list = list_booking_processed
-    elif cannon_columns_list == GluCannonColumnsList.ScheduleMatching:
-        list = list_scheduleMatching
-    elif cannon_columns_list == GluCannonColumnsList.ScheduleProcessedFull:
-        list = list_scheduleFull
-    elif cannon_columns_list == GluCannonColumnsList.Matching:
-        list = list_booking_processed + list_scheduleMatching
+def get_cannon_columns_set(cannon_columns_set: GluCannonColumnsSet) -> Set[str]:
+    set_booking_org = set("blockId dateTime channelOrg ratecard".split())
+    set_booking_processed = set_booking_org | set("channel supplier channelGroup tbId".split())
+    set_scheduleMatching =set( "blockId dateTime channel ratecard wantedness tbId1 tbId2 bookedness".split())
+    set_scheduleOrg = set("blockId	channel	programme blockType_org	blockType_mod xDate	xTime ratecard freeTime	week timeband wantedness bookedness	eqPriceNet grpTg_01 grpTg_02 grpTg_50 grpTg_98 grpTg_99 positionCode scheduleInfo".split())
+    set_scheduleFull = set(set_scheduleOrg | set_scheduleMatching)
 
-    elif cannon_columns_list == GluCannonColumnsList.DoNotCheck:
-        list = []
+    my_set:set[str]
+
+    if cannon_columns_set == GluCannonColumnsSet.BookingOrg:
+        my_set = set_booking_org
+    elif cannon_columns_set == GluCannonColumnsSet.ScheduleOrg:
+        my_set = set_scheduleOrg
+    elif cannon_columns_set == GluCannonColumnsSet.BookingProcessed:
+        my_set = set_booking_processed
+    elif cannon_columns_set == GluCannonColumnsSet.ScheduleMatching:
+        my_set = set_scheduleMatching
+    elif cannon_columns_set == GluCannonColumnsSet.ScheduleProcessedFull:
+        my_set = set_scheduleFull
+    elif cannon_columns_set == GluCannonColumnsSet.Matching:
+        my_set = set_booking_processed | set_scheduleMatching
+    elif cannon_columns_set == GluCannonColumnsSet.DoNotCheck:
+        my_set = set()
     else:
-        raise ValueError(f"Wrong cannon columns list: {cannon_columns_list}")
+        raise ValueError(f"Wrong cannon columns set: {cannon_columns_set}")
 
-    return list
+    return my_set
 
 
 class GluFileType(Enum):
@@ -201,6 +205,8 @@ def export_df(
     debug_msg_base: str = "df '_1_' saved at:",
     export_dir: str = "",
     export_index: bool = False,
+    column_sep:str = ";",
+    decimal_sep:str = ","
 ):
     if export_dir == "":
         export_dir = ResultFolder().get_result_dir()
@@ -215,7 +221,7 @@ def export_df(
     file_name = df_caption + now_str + file_type.value
     file_path = os.path.join(export_dir, file_name)
     if file_type == GluFileType.CSV:
-        df.to_csv(file_path, index=export_index)
+        df.to_csv(file_path, index=export_index, sep=column_sep, decimal=decimal_sep)
     elif file_type == GluFileType.XLSX:
         df.to_excel(file_path, sheet_name=sheet_name, index=export_index)
     else:
@@ -255,11 +261,11 @@ def get_float(input_str: str) -> float:
 
 def check_cannon_columns(
     df: pd.DataFrame,
-    cannon_columns_list: GluCannonColumnsList = GluCannonColumnsList.DoNotCheck,
+    cannon_columns_list: GluCannonColumnsSet = GluCannonColumnsSet.DoNotCheck,
     drop_excess_columns: bool = False,
 ):
-    if cannon_columns_list != GluCannonColumnsList.DoNotCheck:
-        cannon_columns = get_cannon_columns_list(cannon_columns_list)
+    if cannon_columns_list != GluCannonColumnsSet.DoNotCheck:
+        cannon_columns = get_cannon_columns_set(cannon_columns_list)
 
         missing_columns = set(cannon_columns) - set(df.columns)
 

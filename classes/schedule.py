@@ -11,7 +11,7 @@ from classes.status_info import StatusInfo
 from classes.timeband import Timeband
 from classes.wantedness_info import WantednessInfo
 from zzz_enums import *
-from zzz_projectTools import GluCannonColumnsList
+from zzz_projectTools import GluCannonColumnsSet
 
 
 def getProcessedScheduleDf(df_scheduleOrg: pd.DataFrame, df_channelsMapping: pd.DataFrame) -> pd.DataFrame:
@@ -35,15 +35,16 @@ def getProcessedScheduleDf(df_scheduleOrg: pd.DataFrame, df_channelsMapping: pd.
     # id_vars = df_scheduleProcessed.columns.difference(value_vars).tolist()
     # df2 = pd.melt(df_scheduleProcessed, id_vars=id_vars, value_vars=value_vars, var_name="tbType", value_name="tb")
     # df2["tbId"] = df2["tb"].dt.strftime("%Y-%m-%d %H%M") + "|" + df2["channel"]
-    t.check_cannon_columns(df_scheduleProcessed, GluCannonColumnsList.ScheduleMatching, drop_excess_columns=True)
+    t.check_cannon_columns(df_scheduleProcessed, GluCannonColumnsSet.ScheduleProcessedFull, drop_excess_columns=True)
     return df_scheduleProcessed
 
 
 class Schedule(iDataFrameable):
-    def __init__(self, source_path: str, df: pd.DataFrame, schedule_breaks: t.Collection):
-        self.source_path = source_path
-        self.df = df
-        self.schedule_breaks = schedule_breaks
+    def __init__(self, source_path: str, df: pd.DataFrame, schedule_breaks: t.Collection, schedule_info:str):
+        self.source_path: str = source_path
+        self.df:pd.DataFrame = df
+        self.schedule_breaks: t.Collection = schedule_breaks
+        self.schedule_info = schedule_info
 
     def get_timebands_dict(self) -> Dict[str, Timeband]:
         timebands_dict: Dict[str, Timeband] = {}
@@ -64,20 +65,30 @@ class Schedule(iDataFrameable):
             timeband2.add_schedule_break(schedule_break)
         return timebands_dict
 
-    def to_dataframe(self):
-        df = pd.DataFrame(data=[x.serialize for x in self.schedule_breaks.values()])
+    def to_dataframe(self, export_format:GluExportFormat):
+        x: ScheduleBreak
+        # print (type(self.schedule_breaks.values)
+
+        df = pd.DataFrame(data=[x.serialize(export_format) for x in self.schedule_breaks.values()])
+        df['scheduleInfo'] = ''
+        df.loc[0, 'scheduleInfo'] = self.schedule_info  # Assign the string value to the first row of the new column
+
         return df
 
 
 def get_wantedness_info_from_row(wantedness) -> WantednessInfo:
+    is_wanted: bool
+    subcampaign: int
+    origin: GluOrigin
+
     if wantedness == "NotWanted":
-        is_wanted: bool = False
-        subcampaign:int = 0
-        origin:GluOrigin = GluOrigin.NotWanted
+        is_wanted = False
+        subcampaign = -1
+        origin = GluOrigin.NotWanted
     elif wantedness.startswith("Wanted"):
-        is_wanted: bool  = True
+        is_wanted  = True
         sub_string = t.get_substring_between_parentheses(wantedness)
-        subcampaign: int  = int(sub_string.split(",")[0].strip())
+        subcampaign  = int(sub_string.split(",")[0].strip())
         origin_str = sub_string.split(",")[1].strip()
         origin = GluOrigin.get_from_str(origin_str)
     else:
@@ -110,6 +121,19 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
             status_info=status_info,
             tbId1=row["tbId1"],
             tbId2=row["tbId2"],
+            programme=row["programme"],
+            blockType_org=row["blockType_org"],
+            blockType_mod = row["blockType_mod"],
+            freeTime = row["freeTime"],
+            bookedness = row["bookedness"],
+            grpTg_01 =  row["grpTg_01"],
+            grpTg_02 = row["grpTg_02"],
+            grpTg_50 = row["grpTg_50"],
+            grpTg_98 = row["grpTg_98"],
+            grpTg_99 = row["grpTg_99"],
+            positionCode = row["positionCode"],
+
+
         )
         breaks.add(schedule_break, block_id)
 
@@ -117,10 +141,11 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
 
 
 def get_schedule(path_schedule: str, df_channelsMapping: pd.DataFrame) -> Schedule:
-    df_scheduleOrg = pd.read_csv(path_schedule, sep=";", encoding="utf-8")
+    df_scheduleOrg = pd.read_csv(path_schedule, sep=";", encoding="utf-8", decimal=","   )
     df_scheduleProcessed = getProcessedScheduleDf(df_scheduleOrg, df_channelsMapping)
 
     schedule_breaks = get_schedule_breaks(df_scheduleProcessed)
+    schedule_info = df_scheduleOrg["scheduleInfo"][0]
 
-    schedule = Schedule(path_schedule, df_scheduleProcessed, schedule_breaks)
+    schedule = Schedule(path_schedule, df_scheduleProcessed, schedule_breaks, schedule_info)
     return schedule

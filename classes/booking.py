@@ -5,7 +5,7 @@ import pandas as pd
 import zzz_tools as t
 from classes.channel_break import ChannelBreak, get_channel_break
 from classes.iData_framable import iDataFrameable
-from zzz_enums import GluSupplier, GluMatchLevel
+from zzz_enums import GluSupplier, GluMatchLevel, GluExportFormat
 
 
 class Booking(iDataFrameable):
@@ -14,8 +14,10 @@ class Booking(iDataFrameable):
         self.df = df
         self.channel_breaks = channel_breaks
 
-    def to_dataframe(self):
-        df = pd.DataFrame(data=[x.serialize() for x in self.channel_breaks])
+    def to_dataframe(self, export_format:GluExportFormat) -> pd.DataFrame:
+
+        df = pd.DataFrame(data=[x.serialize(export_format) for x in self.channel_breaks])
+
         return df
 
     def get_unmatched_channel_breaks(self):

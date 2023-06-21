@@ -1,7 +1,10 @@
 import abc
 
+from zzz_enums import GluExportFormat
+
+
 class iSerializable(abc.ABC):
-    @property
+
     @abc.abstractmethod
-    def serialize(self):
+    def serialize(self, export_format:GluExportFormat):
         """zamienia obiekt na dict"""

@@ -3,7 +3,7 @@ from classes.break_info import BreakInfo
 from classes.iSerializable import iSerializable
 from classes.schedule_break import ScheduleBreak
 from classes.timeband import Timeband
-from zzz_enums import GluMatchLevel
+from zzz_enums import GluMatchLevel, GluExportFormat
 
 
 class ChannelBreak(iSerializable):
@@ -52,8 +52,11 @@ class ChannelBreak(iSerializable):
 
         return closest_break
 
-    def serialize(self) -> dict:
-        return {"ratecard": self.break_info.ratecard, "dateTime": self.break_info.date_time}
+    def serialize(self, export_format:GluExportFormat) -> dict:
+        if export_format == GluExportFormat.ChannelBreak:
+            return {"ratecard": self.break_info.ratecard, "dateTime": self.break_info.date_time}
+        else:
+            raise ValueError(f"Invalid export format: {export_format}")
 
     def get_potential_matches_ratecard(self) -> t.Collection:
         potential_matches = t.Collection()
@@ -75,7 +78,7 @@ def get_channel_break(row) -> ChannelBreak:
 
     channel_break = ChannelBreak(
         break_info=break_info,
-        subcampaign=1, # TODO: ogarnąć subcampaign
+        subcampaign=0, # TODO: ogarnąć subcampaign
         tbId=row["tbId"],
     )
     return channel_break

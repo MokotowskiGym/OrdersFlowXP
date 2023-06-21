@@ -15,12 +15,23 @@ class StatusInfo(iSerializable):
 
     @property
     def get_is_wanted(self)->bool:
-        return self.subcampaign>0
+        return self.subcampaign>=0
 
-    @property
-    def serialize(self):
+
+    def serialize(self, export_format:GluExportFormat)->dict:
         return {
             'subcampaign': self.subcampaign,
             'origin': self.origin.value,
             'is_booked': self.is_booked
         }
+
+    @property
+    def get_wantedness(self)->str:
+        # WantedBy(Optimizer, Subcampaign(0))
+        if self.get_is_wanted:
+            my_str = f'WantedBy({self.origin.value}, Subcampaign({self.subcampaign}))'
+        else:
+            my_str = 'NotWanted'
+
+        return my_str
+

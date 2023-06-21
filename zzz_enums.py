@@ -18,7 +18,8 @@ class GluOrigin(Enum):
     NotWanted = "NotWanted"
     Optimizer = "Optimizer"
     Manual = "Manual"
-    Channel = "Channel"
+    Station = "Station"
+
 
     @classmethod
     def get_from_str(cls, my_str):
@@ -31,3 +32,4 @@ class GluExportFormat(Enum):
     ChannelBreak = "ChannelBreak"
     ScheduleBreak_minerwa = "ScheduleBreak_minerwa"
     ScheduleBreak_rozkminki = "ScheduleBreak_rozkminki"
+    Irrelevant = "Irrelevant"

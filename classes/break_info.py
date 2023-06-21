@@ -1,6 +1,7 @@
 import datetime as dt
 
 from classes.iSerializable import iSerializable
+from zzz_enums import *
 
 
 class BreakInfo(iSerializable):
@@ -12,8 +13,8 @@ class BreakInfo(iSerializable):
         self.ratecard = ratecard
         self.channel = channel
 
-    @property
-    def serialize(self):
+
+    def serialize(self, export_format:GluExportFormat):
         return {
             "blockId": self.blockId,
             "date_time": self.date_time,

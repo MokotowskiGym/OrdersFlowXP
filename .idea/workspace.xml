@@ -6,15 +6,23 @@
   <component name="BlackConnectSettings" port="45490" lineLength="120" triggerOnEachSave="true" triggerOnReformat="true" />
   <component name="ChangeListManager">
     <list default="true" id="364160d3-0f72-4b22-ba95-24e88e935ebd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/project/source/schedule rozkminki.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/a_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/booking.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/booking.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/break_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/break_info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/channel_break.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/channel_break.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/iData_framable.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/iData_framable.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/iSerializable.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/iSerializable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/merger.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/merger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/schedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/schedule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/schedule_break.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/schedule_break.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/spot_selection_info.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/status_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/status_info.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/d_process_schedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/d_process_schedule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zzz_enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_enums.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zzz_ordersTools.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_ordersTools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zzz_projectTools.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_projectTools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zzz_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_tools.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +281,7 @@
       <workItem from="1686669932062" duration="243000" />
       <workItem from="1686670185654" duration="776000" />
       <workItem from="1687182378358" duration="10158000" />
-      <workItem from="1687260347625" duration="12085000" />
+      <workItem from="1687260347625" duration="23237000" />
     </task>
     <task id="LOCAL-00001" summary="fghdfh">
       <created>1686065004210</created>
@@ -324,7 +332,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687267662202</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="sdfsdf">
+      <created>1687334519725</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1687334519725</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,7 +365,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="fghdfh" />
-    <option name="LAST_COMMIT_MESSAGE" value="fghdfh" />
+    <MESSAGE value="sdfsdf" />
+    <option name="LAST_COMMIT_MESSAGE" value="sdfsdf" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -362,19 +378,19 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/classes/merger.py</url>
-          <line>108</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/zzz_tools.py</url>
-          <line>267</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/zzz_tools.py</url>
           <line>48</line>
           <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/classes/schedule.py</url>
+          <line>75</line>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/classes/schedule_break.py</url>
+          <line>80</line>
+          <option name="timeStamp" value="74" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -390,7 +406,7 @@
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$.coverage" NAME=" Coverage Results" MODIFIED="1683889499785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$zzz_sandbox.coverage" NAME="zzz_sandbox Coverage Results" MODIFIED="1683891782269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mnrw_OrdersFlow$main.coverage" NAME="main Coverage Results" MODIFIED="1680877121827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$a_main.coverage" NAME="a_main Coverage Results" MODIFIED="1687271189764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$a_main.coverage" NAME="a_main Coverage Results" MODIFIED="1687346166888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$a_main__1_.coverage" NAME="a_main (1) Coverage Results" MODIFIED="1682449499524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$main.coverage" NAME="a_main Coverage Results" MODIFIED="1680949697472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

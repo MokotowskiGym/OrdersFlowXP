@@ -1,30 +1,19 @@
 import json
 import os
-from datetime import datetime
-from enum import Enum
-from typing import List
 import re
+from datetime import datetime
+from typing import List
+
 import pandas as pd
 import zzz_tools as t
 from classes.booking import Booking, get_channel_breaks
-from classes.channel_break import ChannelBreak
 from classes.exceptions import MyProgramException
-from classes.schedule import Schedule
-from classes.schedule_break import ScheduleBreak
+from classes.merger import get_merger
 from classes.tv.channel import Channel
 from classes.tv.channel_group import ChannelGroup
 from classes.tv.supplier import Supplier
-from classes.wantedness_info import WantednessInfo
-from classes.merger import Merger, get_merger
 from zzz_enums import *
-from zzz_projectTools import GluCannonColumnsList
-
-
-
-
-
-
-
+from zzz_projectTools import GluCannonColumnsSet
 
 
 def get_date_time_tvp(xDate: str, xHour: str, xMinute: str) -> datetime:
@@ -98,7 +87,7 @@ def get_booking(supplier: GluSupplier, df_channelsMapping: pd.DataFrame, df_copy
     else:
         raise MyProgramException(f"Wrong supplier: {supplier}")
 
-    t.check_cannon_columns(df_booking, GluCannonColumnsList.BookingOrg, drop_excess_columns=True)
+    t.check_cannon_columns(df_booking, GluCannonColumnsSet.BookingOrg, drop_excess_columns=True)
     df_booking = get_merger(
         "Merge channels", df_booking, df_channelsMapping, "channelOrg", right_on="channelPossibleName"
     ).return_merged_df()
@@ -107,7 +96,7 @@ def get_booking(supplier: GluSupplier, df_channelsMapping: pd.DataFrame, df_copy
         lambda row: t.getTimebandId(row["channel"],  row["dateTime"], 30, 15, 30), axis=1
     )
 
-    t.check_cannon_columns(df_booking, GluCannonColumnsList.BookingProcessed, drop_excess_columns=True)
+    t.check_cannon_columns(df_booking, GluCannonColumnsSet.BookingProcessed, drop_excess_columns=True)
     channel_breaks = get_channel_breaks(df_booking)
     # t.msgBox("templarriuuuusz", f"channel_breaks: {len(channel_breaks)}")
 

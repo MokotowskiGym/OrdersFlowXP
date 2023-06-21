@@ -2,7 +2,7 @@ import pandas as pd
 
 from classes.exceptions import MyProgramException
 from classes.result_folder import ResultFolder
-from zzz_projectTools import GluCannonColumnsList
+from zzz_projectTools import GluCannonColumnsSet
 from zzz_tools import export_df, GluFileType, check_cannon_columns
 
 
@@ -13,7 +13,7 @@ def get_merger(
     left_on: str,
     right_on: str = "",
     case_sensitive: bool = False,
-    cannon_columns_list: GluCannonColumnsList = GluCannonColumnsList.DoNotCheck,
+    cannon_columns_list: GluCannonColumnsSet = GluCannonColumnsSet.DoNotCheck,
     right_prefix:str=""
 ):
 
@@ -58,7 +58,7 @@ class Merger:
         case_sensitive: bool,
 
         delete_temp: bool,
-        cannon_columns_list: GluCannonColumnsList = GluCannonColumnsList.DoNotCheck
+        cannon_columns_list: GluCannonColumnsSet = GluCannonColumnsSet.DoNotCheck
     ):
         self.caption = caption
         self.df1 = df1
