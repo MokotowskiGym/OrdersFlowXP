@@ -10,6 +10,7 @@ from classes.schedule_break import ScheduleBreak
 from classes.status_info import StatusInfo
 from classes.timeband import Timeband
 from classes.wantedness_info import WantednessInfo
+from zzz_enums import *
 from zzz_projectTools import GluCannonColumnsList
 
 
@@ -64,20 +65,21 @@ class Schedule(iDataFrameable):
         return timebands_dict
 
     def to_dataframe(self):
-        df = pd.DataFrame(data=[vars(x) for x in self.schedule_breaks.values()])
+        df = pd.DataFrame(data=[x.serialize for x in self.schedule_breaks.values()])
         return df
 
 
 def get_wantedness_info_from_row(wantedness) -> WantednessInfo:
     if wantedness == "NotWanted":
         is_wanted: bool = False
-        subcampaign = None
-        origin = None
+        subcampaign:int = 0
+        origin:GluOrigin = GluOrigin.NotWanted
     elif wantedness.startswith("Wanted"):
-        is_wanted = True
+        is_wanted: bool  = True
         sub_string = t.get_substring_between_parentheses(wantedness)
-        subcampaign = sub_string.split(",")[0].strip()
-        origin = sub_string.split(",")[1].strip()
+        subcampaign: int  = int(sub_string.split(",")[0].strip())
+        origin_str = sub_string.split(",")[1].strip()
+        origin = GluOrigin.get_from_str(origin_str)
     else:
         raise MyProgramException(f"Wrong wantedness: {wantedness}")
 
@@ -102,6 +104,7 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
             origin=wantedness_info.origin,
             is_booked=row["bookedness"]
         )
+
         schedule_break = ScheduleBreak(
             break_info=break_info,
             status_info=status_info,

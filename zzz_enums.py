@@ -15,6 +15,19 @@ class GluMatchLevel(Enum):
     ID = "ID"
 
 class GluOrigin(Enum):
+    NotWanted = "NotWanted"
     Optimizer = "Optimizer"
     Manual = "Manual"
     Channel = "Channel"
+
+    @classmethod
+    def get_from_str(cls, my_str):
+        for origin in cls:
+            if origin.value == my_str:
+                return origin
+        raise ValueError("No such origin: " + my_str)
+
+class GluExportFormat(Enum):
+    ChannelBreak = "ChannelBreak"
+    ScheduleBreak_minerwa = "ScheduleBreak_minerwa"
+    ScheduleBreak_rozkminki = "ScheduleBreak_rozkminki"

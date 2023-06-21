@@ -1,8 +1,7 @@
 def process_schedule_after_booking(schedule_breaks, channel_breaks)->None:
     for channel_break in channel_breaks:
         if channel_break.schedule_break is None:
+            # TODO: Implement the logic for processing the user input
             raise Exception("todo: implement")
         else:
-            pass
-            # channel_break: ChannelBreak = channel_break
-            # schdule_break: ScheduleBreak = channel_break.schedule_break
+            channel_break.schedule_break.book(subcampaign=channel_break.subcampaign)
