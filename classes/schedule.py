@@ -1,6 +1,7 @@
 from typing import Dict
 
 import pandas as pd
+import zzz_ordersTools as ot
 import zzz_tools as t
 from classes.break_info import BreakInfo
 from classes.exceptions import MyProgramException
@@ -17,8 +18,9 @@ from zzz_projectTools import GluCannonColumnsSet
 def getProcessedScheduleDf(df_scheduleOrg: pd.DataFrame, df_channelsMapping: pd.DataFrame) -> pd.DataFrame:
     df_scheduleOrg.rename(columns={"channel": "channel_org"}, inplace=True)
     df_scheduleProcessed = get_merger(
-        "Processed schedule", df_scheduleOrg, df_channelsMapping, "channel_org", right_on="channelPossibleName"
+        "Processed schedule", df_scheduleOrg, df_channelsMapping, "channel_org", right_on="channelPossibleName", err_caption_unjoined="Unknown channels \n {} \n in imported schedule'"
     ).return_merged_df()
+
     df_scheduleProcessed["dateTime"] = pd.to_datetime(
         df_scheduleProcessed["xDate"] + " " + df_scheduleProcessed["xTime"]
     )
@@ -140,7 +142,8 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
     return breaks
 
 
-def get_schedule(path_schedule: str, df_channelsMapping: pd.DataFrame) -> Schedule:
+def get_schedule(schedule_type: GluScheduleType, df_channelsMapping: pd.DataFrame) -> Schedule:
+    path_schedule = ot.get_schedule_path(schedule_type)
     df_scheduleOrg = pd.read_csv(path_schedule, sep=";", encoding="utf-8", decimal=","   )
     df_scheduleProcessed = getProcessedScheduleDf(df_scheduleOrg, df_channelsMapping)
 

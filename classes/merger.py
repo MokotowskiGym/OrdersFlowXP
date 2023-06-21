@@ -14,7 +14,8 @@ def get_merger(
     right_on: str = "",
     case_sensitive: bool = False,
     cannon_columns_list: GluCannonColumnsSet = GluCannonColumnsSet.DoNotCheck,
-    right_prefix:str=""
+    right_prefix:str="",
+    err_caption_unjoined:str="Unjoined values: \n {} \n in merge operation '{}'"
 ):
 
     if right_prefix == "":
@@ -42,7 +43,7 @@ def get_merger(
         delete_temp = True
 
     return Merger(
-        caption, df1, df2_safe, left_key, right_key, caption, case_sensitive,  delete_temp, cannon_columns_list
+        caption, df1, df2_safe, left_key, right_key, caption, case_sensitive,  delete_temp, cannon_columns_list , err_caption_unjoined
     )
 
 
@@ -56,9 +57,9 @@ class Merger:
         right_key: str,
         base_err_msg: str,
         case_sensitive: bool,
-
         delete_temp: bool,
-        cannon_columns_list: GluCannonColumnsSet = GluCannonColumnsSet.DoNotCheck
+        cannon_columns_list: GluCannonColumnsSet ,
+        err_caption_unjoined:str
     ):
         self.caption = caption
         self.df1 = df1
@@ -69,6 +70,7 @@ class Merger:
         self.case_sensitive = case_sensitive
         self.delete_temp = delete_temp
         self.cannon_columns_list = cannon_columns_list
+        self.err_caption_unjoined = err_caption_unjoined
 
     def _clear(self, merged_df) -> None:
         if self.delete_temp:
@@ -77,7 +79,7 @@ class Merger:
     def _process_unjoined(self, merged_df: pd.DataFrame) -> None:
         unjoined_values = merged_df.loc[merged_df[self.right_key].isnull(), self.left_key].unique()
         if len(unjoined_values) > 0:
-            raise MyProgramException(f"Unjoined value in {self.caption}")
+            raise MyProgramException(self.err_caption_unjoined.format(unjoined_values, self.caption))
 
     def export_merge_info(self, merged_df: pd.DataFrame, error_caption: str) -> None:
 
@@ -105,8 +107,9 @@ class Merger:
             self._process_unjoined(merged_df)
             self._clear(merged_df)
             check_cannon_columns(merged_df, self.cannon_columns_list, True )
+        except MyProgramException as e:
+            raise MyProgramException (f"{e}")
         except Exception as e:
             self.export_merge_info(merged_df, str(e))
-            # print (f"Error in merge operation '{self.caption}\nFiles saved at:\n{self.get_export_dir()}")
-            raise Exception (f"Error in merge operation '{self.caption}\nFiles saved at:\n{self.get_export_dir()}")
+            raise Exception (f"Error '{e}' in merge operation '{self.caption}\nFiles saved at:\n{self.get_export_dir()}")
         return merged_df

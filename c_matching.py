@@ -1,8 +1,8 @@
 from typing import Dict
 
-import zzz_ordersTools as ot
 import zzz_tools as t
 from classes.channel_break import ChannelBreak
+from classes.schedule_break import ScheduleBreak
 from classes.timeband import Timeband
 from zzz_enums import GluMatchLevel
 
@@ -43,4 +43,4 @@ def match_channel_breaks_step2_timebands(channel_breaks: t.Collection, timebands
 def modify_schedule(schedule_breaks: t.Collection, channel_breaks: t.Collection):
     for channel_break in channel_breaks.values():
         if channel_break.schedule_break is not None:
-            schedule_break: ot.ScheduleBreak = channel_break.schedule_break
+            schedule_break: ScheduleBreak = channel_break.schedule_break

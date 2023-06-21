@@ -58,8 +58,8 @@ def get_date_time_polsat(xDate, xTime) -> datetime:
     return dt
 
 
-def get_booking(supplier: GluSupplier, df_channelsMapping: pd.DataFrame, df_copyIndexes:pd.DataFrame) -> Booking:
-    path = get_booking_path(supplier)
+def get_booking(supplier: GluSupplier, df_channelsMapping: pd.DataFrame, df_copyIndexes:pd.DataFrame, booking_quality:GluBookingQuality) -> Booking:
+    path = get_booking_path(supplier, booking_quality)
 
     if supplier == GluSupplier.TVP:
         print(0 / 0)  # wywalić wczytywanie jako string
@@ -89,7 +89,7 @@ def get_booking(supplier: GluSupplier, df_channelsMapping: pd.DataFrame, df_copy
 
     t.check_cannon_columns(df_booking, GluCannonColumnsSet.BookingOrg, drop_excess_columns=True)
     df_booking = get_merger(
-        "Merge channels", df_booking, df_channelsMapping, "channelOrg", right_on="channelPossibleName"
+        "Merge channels", df_booking, df_channelsMapping, "channelOrg", right_on="channelPossibleName",  err_caption_unjoined="Unknown channels \n {} \n in imported booking'"
     ).return_merged_df()
 
     df_booking["tbId"] = df_booking.apply(
@@ -163,13 +163,33 @@ def get_copy_indexes_df(path: str) -> pd.DataFrame:
     return df
 
 
-def get_booking_path(supplier: GluSupplier) -> str:
+def get_booking_path(supplier: GluSupplier, booking_quality:GluBookingQuality) -> str:
     folder = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source"
-    if supplier == GluSupplier.POLSAT:
+    case = supplier.value + booking_quality.value
+    if case == GluSupplier.POLSAT.value + GluBookingQuality.OK.value:
         file = "2 booking polsat no pato2023-04-22 1052.xlsx"
-        # file = "2 booking polsat no pato2023-04-22 1052 - zjebane stacje.xlsx"
-    elif supplier == GluSupplier.TVN:
-        file = "2 booking 2022-10-06 114034 TVN no pato.txt"
-    elif Supplier == GluSupplier.TVP:
-        file = "2 booking 2022-10-06 113747 TVP 1z2.xls"
+    elif case == GluSupplier.POLSAT.value + GluBookingQuality.ABSENT_CHANNELS.value:
+        file = "2 booking polsat no pato2023-04-22 1052 -brakujące stacje.xlsx"
+    elif case == GluSupplier.POLSAT.value + GluBookingQuality.ILLEGAL_CHANNELS.value:
+        file = "2 booking polsat no pato2023-04-22 1052 -zjebane stacje.xlsx"
+    else:
+        raise MyProgramException(f"Wrong supplier: {supplier} / booking_quality: {booking_quality}")
+    # elif supplier == GluSupplier.TVN:
+    #     file = "2 booking 2022-10-06 114034 TVN no pato.txt"
+    # elif Supplier == GluSupplier.TVP:
+    #     file = "2 booking 2022-10-06 113747 TVP 1z2.xls"
     return os.path.join(folder, file)
+
+def get_schedule_path(schedule_type:GluScheduleType)->str:
+    path:str
+    if schedule_type == GluScheduleType.OK_4CHANNELS:
+        path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1 schedule 2022-10-06 112529 Schedule czysta.txt"
+    elif schedule_type == GluScheduleType.ILLEGAL_CHANNELS:
+        path =  r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1a schedule 2022-10-06 112529 Schedule czysta - wrong channels.txt"
+    else:
+        raise ValueError("Wrong schedule type")
+
+    return path
+def check_time_space_consistency(df_booking:pd.DataFrame, df_schedule:pd.DataFrame):
+    get_merger("check_time_space_consistency", df_booking, df_schedule, "channel", "channel", err_caption_unjoined="There are channels in booking that are absent in schedule: \n {}" ).return_merged_df()
+

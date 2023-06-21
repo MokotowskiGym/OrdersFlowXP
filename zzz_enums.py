@@ -33,3 +33,12 @@ class GluExportFormat(Enum):
     ScheduleBreak_minerwa = "ScheduleBreak_minerwa"
     ScheduleBreak_rozkminki = "ScheduleBreak_rozkminki"
     Irrelevant = "Irrelevant"
+
+class GluBookingQuality(Enum):
+    OK = "OK"
+    ABSENT_CHANNELS = "Absent channels"
+    ILLEGAL_CHANNELS = "Illegal channels"
+
+class GluScheduleType(Enum):
+    OK_4CHANNELS = "OK_4channels"
+    ILLEGAL_CHANNELS = "Illegal channels"

@@ -207,7 +207,7 @@ def export_df(
     export_index: bool = False,
     column_sep:str = ";",
     decimal_sep:str = ","
-):
+)->str:
     if export_dir == "":
         export_dir = ResultFolder().get_result_dir()
     else:
@@ -228,7 +228,7 @@ def export_df(
         raise ValueError(f"File type {file_type} not supported")
 
     process_df_debug(df_debug_mode, file_path, df_caption, debug_msg_base)
-
+    return file_path
 
 def get_dir_safe(dir_name: str) -> str:
     dir = os.path.join(os.getcwd(), dir_name)
