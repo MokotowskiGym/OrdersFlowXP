@@ -1,10 +1,13 @@
 import json
 import os
 import re
+from datetime import datetime
 from typing import List
 
 import pandas as pd
 
+import classes.consts as CONST_
+import classes.strings as STR_
 import zzz_tools as t
 from classes.booking import Booking, get_channel_breaks
 from classes.break_info import BreakInfo
@@ -16,7 +19,6 @@ from classes.timeband import Timeband
 from classes.tv.channel import Channel
 from classes.tv.channel_group import ChannelGroup
 from classes.tv.supplier import Supplier
-from zzz_constants import *
 from zzz_enums import *
 from zzz_projectTools import GluCannonColumnsSet
 
@@ -240,14 +242,14 @@ def check_time_space_consistency(df_booking: pd.DataFrame, df_schedule: pd.DataF
         )
 
 def get_empty_timeband()->Timeband:
-    timeband = Timeband(STR_IRELEVANT)
+    timeband = Timeband(STR_.IRELEVANT)
     return timeband
 
 def get_empty_break_info()->BreakInfo:
-    break_info = BreakInfo(0,  CONST_FAKE_DATE)
+    break_info = BreakInfo(0,  CONST_.FAKE_DATE)
     return break_info
 def get_empty_schedule_break()->ScheduleBreak:
-    schedule_break = ScheduleBreak(get_empty_break_info, get_empty_status_info, STR_IRELEVANT, STR_IRELEVANT, STR_IRELEVANT, STR_IRELEVANT, STR_IRELEVANT, 999, STR_IRELEVANT, 0, 0, 0, 0, 0, 50)
+    schedule_break = ScheduleBreak(get_empty_break_info, get_empty_status_info, STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, 999, STR_.IRELEVANT, 0, 0, 0, 0, 0, 50)
     return schedule_break
 def get_empty_status_info()->StatusInfo:
     status_info: StatusInfo = StatusInfo(subcampaign=-1, origin=GluOrigin.NotWanted, is_booked=False)

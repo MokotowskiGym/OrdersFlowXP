@@ -12,8 +12,8 @@ class ChannelBreak(iSerializable):
         self.tbId = tbId
         self.subcampaign = subcampaign
         self._match_level = GluMatchLevel.NO_MATCH
-        self._schedule_timeband:Timeband = get_empty_timeband()
-        self._schedule_break:ScheduleBreak = None
+        self._schedule_timeband:Timeband
+        self._schedule_break:ScheduleBreak
 
 
     @property
