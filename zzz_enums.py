@@ -14,12 +14,12 @@ class GluMatchLevel(Enum):
     RATECARD = "Ratecard"
     ID = "ID"
 
+
 class GluOrigin(Enum):
     NotWanted = "NotWanted"
     Optimizer = "Optimizer"
     Manual = "Manual"
     Station = "Station"
-
 
     @classmethod
     def get_from_str(cls, my_str):
@@ -28,17 +28,27 @@ class GluOrigin(Enum):
                 return origin
         raise ValueError("No such origin: " + my_str)
 
+
 class GluExportFormat(Enum):
     ChannelBreak = "ChannelBreak"
     ScheduleBreak_minerwa = "ScheduleBreak_minerwa"
     ScheduleBreak_rozkminki = "ScheduleBreak_rozkminki"
     Irrelevant = "Irrelevant"
 
+
 class GluBookingQuality(Enum):
     OK = "OK"
     ABSENT_CHANNELS = "Absent channels"
     ILLEGAL_CHANNELS = "Illegal channels"
+    FUCKED_UP_DATES = "Fucked up dates"
 
 class GluScheduleType(Enum):
     OK_4CHANNELS = "OK_4channels"
     ILLEGAL_CHANNELS = "Illegal channels"
+
+
+class GluExceptionType(Enum):
+    MERGER_GENERIC = "There are unjoined values \n _UnjoinedValues_ \n in merge operation \n _Caption_  \n that are absent in schedule:"
+    MERGER_ILLEGAL_CHANNELS_IN_BOOKING = "Unknown channels \n _UnjoinedValues_ \n in imported booking'"
+    MERGER_ILLEGAL_CHANNELS_IN_SCHEDULE = "Unknown channels \n _UnjoinedValues_ \n in imported schedule'"
+    MERGER_ABSENT_CHANNELS = "There are channels in booking that are absent in schedule\n _UnjoinedValues_:"

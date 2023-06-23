@@ -3,7 +3,7 @@ from classes.break_info import BreakInfo
 from classes.iSerializable import iSerializable
 from classes.schedule_break import ScheduleBreak
 from classes.timeband import Timeband
-from zzz_enums import GluMatchLevel, GluExportFormat
+from zzz_enums import *
 
 
 class ChannelBreak(iSerializable):
@@ -12,6 +12,8 @@ class ChannelBreak(iSerializable):
         self.tbId = tbId
         self.subcampaign = subcampaign
         self._match_level = GluMatchLevel.NO_MATCH
+        self._schedule_timeband:Timeband = get_empty_timeband()
+        self._schedule_break:ScheduleBreak = None
 
 
     @property
@@ -24,19 +26,19 @@ class ChannelBreak(iSerializable):
 
 
     @property
-    def schedule_timeband(self) -> Timeband:
+    def schedule_timeband(self) -> Timeband|None:
         return self._schedule_timeband
 
     @schedule_timeband.setter
-    def schedule_timeband(self, value: Timeband) -> None:
+    def schedule_timeband(self, value: Timeband|None) -> None:
         self._schedule_timeband = value
 
     @property
-    def schedule_break(self) -> ScheduleBreak:
+    def schedule_break(self) -> ScheduleBreak|None:
         return self._schedule_break
 
     @schedule_break.setter
-    def schedule_break(self, value: ScheduleBreak) -> None:
+    def schedule_break(self, value: ScheduleBreak|None) -> None:
         self._schedule_break = value
 
     def get_closest_break(self, schedule_breaks: t.Collection) -> ScheduleBreak:
@@ -65,6 +67,7 @@ class ChannelBreak(iSerializable):
             if schedule_break.break_info.ratecard == self.break_info.ratecard:
                 potential_matches.add(schedule_break, schedule_break.break_info.blockId)
         return potential_matches
+
 
 
 def get_channel_break(row) -> ChannelBreak:

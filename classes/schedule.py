@@ -1,6 +1,7 @@
 from typing import Dict
 
 import pandas as pd
+
 import zzz_ordersTools as ot
 import zzz_tools as t
 from classes.break_info import BreakInfo
@@ -18,7 +19,12 @@ from zzz_projectTools import GluCannonColumnsSet
 def getProcessedScheduleDf(df_scheduleOrg: pd.DataFrame, df_channelsMapping: pd.DataFrame) -> pd.DataFrame:
     df_scheduleOrg.rename(columns={"channel": "channel_org"}, inplace=True)
     df_scheduleProcessed = get_merger(
-        "Processed schedule", df_scheduleOrg, df_channelsMapping, "channel_org", right_on="channelPossibleName", err_caption_unjoined="Unknown channels \n {} \n in imported schedule'"
+        "Processed schedule",
+        df_scheduleOrg,
+        df_channelsMapping,
+        "channel_org",
+        right_on="channelPossibleName",
+        exception_type_unjoined=GluExceptionType.MERGER_ILLEGAL_CHANNELS_IN_SCHEDULE,
     ).return_merged_df()
 
     df_scheduleProcessed["dateTime"] = pd.to_datetime(
@@ -42,9 +48,9 @@ def getProcessedScheduleDf(df_scheduleOrg: pd.DataFrame, df_channelsMapping: pd.
 
 
 class Schedule(iDataFrameable):
-    def __init__(self, source_path: str, df: pd.DataFrame, schedule_breaks: t.Collection, schedule_info:str):
+    def __init__(self, source_path: str, df: pd.DataFrame, schedule_breaks: t.Collection, schedule_info: str):
         self.source_path: str = source_path
-        self.df:pd.DataFrame = df
+        self.df: pd.DataFrame = df
         self.schedule_breaks: t.Collection = schedule_breaks
         self.schedule_info = schedule_info
 
@@ -67,13 +73,13 @@ class Schedule(iDataFrameable):
             timeband2.add_schedule_break(schedule_break)
         return timebands_dict
 
-    def to_dataframe(self, export_format:GluExportFormat):
+    def to_dataframe(self, export_format: GluExportFormat):
         x: ScheduleBreak
         # print (type(self.schedule_breaks.values)
 
         df = pd.DataFrame(data=[x.serialize(export_format) for x in self.schedule_breaks.values()])
-        df['scheduleInfo'] = ''
-        df.loc[0, 'scheduleInfo'] = self.schedule_info  # Assign the string value to the first row of the new column
+        df["scheduleInfo"] = ""
+        df.loc[0, "scheduleInfo"] = self.schedule_info  # Assign the string value to the first row of the new column
 
         return df
 
@@ -88,9 +94,9 @@ def get_wantedness_info_from_row(wantedness) -> WantednessInfo:
         subcampaign = -1
         origin = GluOrigin.NotWanted
     elif wantedness.startswith("Wanted"):
-        is_wanted  = True
+        is_wanted = True
         sub_string = t.get_substring_between_parentheses(wantedness)
-        subcampaign  = int(sub_string.split(",")[0].strip())
+        subcampaign = int(sub_string.split(",")[0].strip())
         origin_str = sub_string.split(",")[1].strip()
         origin = GluOrigin.get_from_str(origin_str)
     else:
@@ -113,9 +119,7 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
         )
 
         status_info = StatusInfo(
-            subcampaign=wantedness_info.subcampaign,
-            origin=wantedness_info.origin,
-            is_booked=row["bookedness"]
+            subcampaign=wantedness_info.subcampaign, origin=wantedness_info.origin, is_booked=row["bookedness"]
         )
 
         schedule_break = ScheduleBreak(
@@ -125,17 +129,15 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
             tbId2=row["tbId2"],
             programme=row["programme"],
             blockType_org=row["blockType_org"],
-            blockType_mod = row["blockType_mod"],
-            freeTime = row["freeTime"],
-            bookedness = row["bookedness"],
-            grpTg_01 =  row["grpTg_01"],
-            grpTg_02 = row["grpTg_02"],
-            grpTg_50 = row["grpTg_50"],
-            grpTg_98 = row["grpTg_98"],
-            grpTg_99 = row["grpTg_99"],
-            positionCode = row["positionCode"],
-
-
+            blockType_mod=row["blockType_mod"],
+            freeTime=row["freeTime"],
+            bookedness=row["bookedness"],
+            grpTg_01=row["grpTg_01"],
+            grpTg_02=row["grpTg_02"],
+            grpTg_50=row["grpTg_50"],
+            grpTg_98=row["grpTg_98"],
+            grpTg_99=row["grpTg_99"],
+            positionCode=row["positionCode"],
         )
         breaks.add(schedule_break, block_id)
 
@@ -144,7 +146,7 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
 
 def get_schedule(schedule_type: GluScheduleType, df_channelsMapping: pd.DataFrame) -> Schedule:
     path_schedule = ot.get_schedule_path(schedule_type)
-    df_scheduleOrg = pd.read_csv(path_schedule, sep=";", encoding="utf-8", decimal=","   )
+    df_scheduleOrg = pd.read_csv(path_schedule, sep=";", encoding="utf-8", decimal=",")
     df_scheduleProcessed = getProcessedScheduleDf(df_scheduleOrg, df_channelsMapping)
 
     schedule_breaks = get_schedule_breaks(df_scheduleProcessed)

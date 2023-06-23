@@ -1,17 +1,22 @@
 import json
 import os
 import re
-from datetime import datetime
 from typing import List
 
 import pandas as pd
+
 import zzz_tools as t
 from classes.booking import Booking, get_channel_breaks
+from classes.break_info import BreakInfo
 from classes.exceptions import MyProgramException
 from classes.merger import get_merger
+from classes.schedule_break import ScheduleBreak
+from classes.status_info import StatusInfo
+from classes.timeband import Timeband
 from classes.tv.channel import Channel
 from classes.tv.channel_group import ChannelGroup
 from classes.tv.supplier import Supplier
+from zzz_constants import *
 from zzz_enums import *
 from zzz_projectTools import GluCannonColumnsSet
 
@@ -58,7 +63,12 @@ def get_date_time_polsat(xDate, xTime) -> datetime:
     return dt
 
 
-def get_booking(supplier: GluSupplier, df_channelsMapping: pd.DataFrame, df_copyIndexes:pd.DataFrame, booking_quality:GluBookingQuality) -> Booking:
+def get_booking(
+    supplier: GluSupplier,
+    df_channelsMapping: pd.DataFrame,
+    df_copyIndexes: pd.DataFrame,
+    booking_quality: GluBookingQuality,
+) -> Booking:
     path = get_booking_path(supplier, booking_quality)
 
     if supplier == GluSupplier.TVP:
@@ -77,8 +87,10 @@ def get_booking(supplier: GluSupplier, df_channelsMapping: pd.DataFrame, df_copy
 
     elif supplier == GluSupplier.POLSAT:
         df_booking = pd.read_excel(path)
-        df_booking['CopyLength'] = df_booking['Długość'].str.replace('"', '').astype(int)
-        df_booking = get_merger("copy indexes", df_booking, df_copyIndexes, "CopyLength",  case_sensitive=True).return_merged_df()
+        df_booking["CopyLength"] = df_booking["Długość"].str.replace('"', "").astype(int)
+        df_booking = get_merger(
+            "copy indexes", df_booking, df_copyIndexes, "CopyLength", case_sensitive=True
+        ).return_merged_df()
         df_booking["dateTime"] = df_booking.apply(lambda x: get_date_time_polsat(x["Data"], x["Godzina"]), axis=1)
         df_booking["channelOrg"] = df_booking["Stacja"]
         df_booking["ratecard_indexed"] = df_booking.apply(lambda x: t.get_float(x["Base price"]), axis=1)
@@ -89,11 +101,16 @@ def get_booking(supplier: GluSupplier, df_channelsMapping: pd.DataFrame, df_copy
 
     t.check_cannon_columns(df_booking, GluCannonColumnsSet.BookingOrg, drop_excess_columns=True)
     df_booking = get_merger(
-        "Merge channels", df_booking, df_channelsMapping, "channelOrg", right_on="channelPossibleName",  err_caption_unjoined="Unknown channels \n {} \n in imported booking'"
+        "Merge channels",
+        df_booking,
+        df_channelsMapping,
+        "channelOrg",
+        right_on="channelPossibleName",
+        exception_type_unjoined=GluExceptionType.MERGER_ILLEGAL_CHANNELS_IN_BOOKING,
     ).return_merged_df()
 
     df_booking["tbId"] = df_booking.apply(
-        lambda row: t.getTimebandId(row["channel"],  row["dateTime"], 30, 15, 30), axis=1
+        lambda row: t.getTimebandId(row["channel"], row["dateTime"], 30, 15, 30), axis=1
     )
 
     t.check_cannon_columns(df_booking, GluCannonColumnsSet.BookingProcessed, drop_excess_columns=True)
@@ -163,7 +180,7 @@ def get_copy_indexes_df(path: str) -> pd.DataFrame:
     return df
 
 
-def get_booking_path(supplier: GluSupplier, booking_quality:GluBookingQuality) -> str:
+def get_booking_path(supplier: GluSupplier, booking_quality: GluBookingQuality) -> str:
     folder = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source"
     case = supplier.value + booking_quality.value
     if case == GluSupplier.POLSAT.value + GluBookingQuality.OK.value:
@@ -172,6 +189,8 @@ def get_booking_path(supplier: GluSupplier, booking_quality:GluBookingQuality) -
         file = "2 booking polsat no pato2023-04-22 1052 -brakujące stacje.xlsx"
     elif case == GluSupplier.POLSAT.value + GluBookingQuality.ILLEGAL_CHANNELS.value:
         file = "2 booking polsat no pato2023-04-22 1052 -zjebane stacje.xlsx"
+    elif case == GluSupplier.POLSAT.value + GluBookingQuality.FUCKED_UP_DATES.value:
+        file = "2 booking polsat no pato2023-04-22 1052 - zjebane daty.xlsx"
     else:
         raise MyProgramException(f"Wrong supplier: {supplier} / booking_quality: {booking_quality}")
     # elif supplier == GluSupplier.TVN:
@@ -180,16 +199,77 @@ def get_booking_path(supplier: GluSupplier, booking_quality:GluBookingQuality) -
     #     file = "2 booking 2022-10-06 113747 TVP 1z2.xls"
     return os.path.join(folder, file)
 
-def get_schedule_path(schedule_type:GluScheduleType)->str:
-    path:str
+
+def get_schedule_path(schedule_type: GluScheduleType) -> str:
+    path: str
     if schedule_type == GluScheduleType.OK_4CHANNELS:
         path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1 schedule 2022-10-06 112529 Schedule czysta.txt"
     elif schedule_type == GluScheduleType.ILLEGAL_CHANNELS:
-        path =  r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1a schedule 2022-10-06 112529 Schedule czysta - wrong channels.txt"
+        path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1a schedule 2022-10-06 112529 Schedule czysta - wrong channels.txt"
     else:
         raise ValueError("Wrong schedule type")
 
     return path
-def check_time_space_consistency(df_booking:pd.DataFrame, df_schedule:pd.DataFrame):
-    get_merger("check_time_space_consistency", df_booking, df_schedule, "channel", "channel", err_caption_unjoined="There are channels in booking that are absent in schedule: \n {}" ).return_merged_df()
 
+
+def check_time_space_consistency(df_booking: pd.DataFrame, df_schedule: pd.DataFrame):
+    get_merger(
+        "check_time_space_consistency",
+        df_booking,
+        df_schedule,
+        "channel",
+        "channel",
+        exception_type_unjoined= GluExceptionType.MERGER_ABSENT_CHANNELS,
+    ).return_merged_df()
+
+    min_date_booking = df_booking["dateTime"].min()
+    max_date_booking = df_booking["dateTime"].max()
+    min_date_schedule = df_schedule["dateTime"].min()
+    max_date_schedule = df_schedule["dateTime"].max()
+
+    dates_ok: bool = False
+    if max_date_booking <= max_date_schedule:
+        if min_date_booking >= min_date_schedule:
+            dates_ok = True
+
+    if not dates_ok:
+        raise MyProgramException(
+            f"Dates are not consistent:\n "
+            f"Booking: {min_date_booking} to  {max_date_booking} \n "
+            f"Schedule: {min_date_schedule} to {max_date_schedule}"
+        )
+
+def get_empty_timeband()->Timeband:
+    timeband = Timeband(STR_IRELEVANT)
+    return timeband
+
+def get_empty_break_info()->BreakInfo:
+    break_info = BreakInfo(0,  CONST_FAKE_DATE)
+    return break_info
+def get_empty_schedule_break()->ScheduleBreak:
+    schedule_break = ScheduleBreak(get_empty_break_info, get_empty_status_info, STR_IRELEVANT, STR_IRELEVANT, STR_IRELEVANT, STR_IRELEVANT, STR_IRELEVANT, 999, STR_IRELEVANT, 0, 0, 0, 0, 0, 50)
+    return schedule_break
+def get_empty_status_info()->StatusInfo:
+    status_info: StatusInfo = StatusInfo(subcampaign=-1, origin=GluOrigin.NotWanted, is_booked=False)
+    return status_info
+def get_schedule_break_from_channel_break(break_info:BreakInfo)->ScheduleBreak:
+
+
+    schedule_break = ScheduleBreak(
+        break_info,
+        get_empty_status_info,
+        STR_IRELEVANT,
+        STR_IRELEVANT,
+        STR_ADDED_BY_STATION,
+        STR_UNKNOWN,
+        STR_UNKNOWN,
+        999,
+        STR_BOOKEDNESS_NOT_BOOKED,
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+    )
+    return schedule_break
