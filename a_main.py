@@ -6,7 +6,7 @@ import zzz_tools as t
 from classes.schedule import get_schedule
 from zzz_enums import *
 
-
+# TODO: bookedness ogarnąć, empty schedule break, ctrl+F w edytorze
 def process_booking(
         supplier: GluSupplier,
         booking_quality: GluBookingQuality,
@@ -51,7 +51,7 @@ def process_booking(
 def main():
     supplier: GluSupplier = GluSupplier.POLSAT
     booking_quality: GluBookingQuality = GluBookingQuality.FUCKED_UP_DATES
-    schedule_type: GluScheduleType = GluScheduleType.OK_4CHANNELS
+    schedule_type: GluScheduleType = GluScheduleType.OK_4CHANNELS_1WANTED
 
     # schedule_path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1a schedule 2022-10-06 112529 Schedule czysta - wrong channels.txt"
 

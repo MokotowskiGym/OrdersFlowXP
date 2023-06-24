@@ -6,8 +6,8 @@ from typing import List
 
 import pandas as pd
 
-import classes.consts as CONST_
-import classes.strings as STR_
+import zzz_constants as CONST_
+import zzz_strings as STR_
 import zzz_tools as t
 from classes.booking import Booking, get_channel_breaks
 from classes.break_info import BreakInfo
@@ -204,10 +204,13 @@ def get_booking_path(supplier: GluSupplier, booking_quality: GluBookingQuality) 
 
 def get_schedule_path(schedule_type: GluScheduleType) -> str:
     path: str
-    if schedule_type == GluScheduleType.OK_4CHANNELS:
+    if schedule_type == GluScheduleType.OK_4CHANNELS_CLEAR:
         path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1 schedule 2022-10-06 112529 Schedule czysta.txt"
     elif schedule_type == GluScheduleType.ILLEGAL_CHANNELS:
         path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1a schedule 2022-10-06 112529 Schedule czysta - wrong channels.txt"
+    elif schedule_type == GluScheduleType.OK_4CHANNELS_1WANTED:
+        path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1b schedule 2022-10-06 112529 Schedule wanted.txt"
+
     else:
         raise ValueError("Wrong schedule type")
 
@@ -246,10 +249,10 @@ def get_empty_timeband()->Timeband:
     return timeband
 
 def get_empty_break_info()->BreakInfo:
-    break_info = BreakInfo(0,  CONST_.FAKE_DATE)
+    break_info = BreakInfo(0,  CONST_.FAKE_DATE, CONST_.FAKE_INT, STR_.IRELEVANT)
     return break_info
-def get_empty_schedule_break()->ScheduleBreak:
-    schedule_break = ScheduleBreak(get_empty_break_info, get_empty_status_info, STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, 999, STR_.IRELEVANT, 0, 0, 0, 0, 0, 50)
+def get_empty_schedule_break(break_info:BreakInfo)->ScheduleBreak:
+    schedule_break = ScheduleBreak(break_info, get_empty_status_info(), STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, 999, STR_.IRELEVANT, 0, 0, 0, 0, 0, 50)
     return schedule_break
 def get_empty_status_info()->StatusInfo:
     status_info: StatusInfo = StatusInfo(subcampaign=-1, origin=GluOrigin.NotWanted, is_booked=False)
@@ -259,14 +262,14 @@ def get_schedule_break_from_channel_break(break_info:BreakInfo)->ScheduleBreak:
 
     schedule_break = ScheduleBreak(
         break_info,
-        get_empty_status_info,
-        STR_IRELEVANT,
-        STR_IRELEVANT,
-        STR_ADDED_BY_STATION,
-        STR_UNKNOWN,
-        STR_UNKNOWN,
+        get_empty_status_info(),
+        STR_.IRELEVANT,
+        STR_.IRELEVANT,
+        STR_.ADDED_BY_STATION,
+        STR_.UNKNOWN,
+        STR_.UNKNOWN,
         999,
-        STR_BOOKEDNESS_NOT_BOOKED,
+        STR_.BOOKEDNESS_NOT_BOOKED,
         0,
         0,
         0,

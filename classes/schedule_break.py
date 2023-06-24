@@ -1,11 +1,10 @@
 from classes.break_info import BreakInfo
-from classes.iEmptyable import iEmptyable
 from classes.iSerializable import iSerializable
 from classes.status_info import StatusInfo
 from zzz_enums import GluOrigin, GluExportFormat
 
 
-class ScheduleBreak(iSerializable, iEmptyable):
+class ScheduleBreak(iSerializable):
     def __init__(
         self,
         break_info:BreakInfo,

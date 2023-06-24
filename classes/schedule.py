@@ -96,8 +96,8 @@ def get_wantedness_info_from_row(wantedness) -> WantednessInfo:
     elif wantedness.startswith("Wanted"):
         is_wanted = True
         sub_string = t.get_substring_between_parentheses(wantedness)
-        subcampaign = int(sub_string.split(",")[0].strip())
-        origin_str = sub_string.split(",")[1].strip()
+        subcampaign = int(t.get_substring_between_parentheses(sub_string))
+        origin_str = sub_string.split(",")[0].strip()
         origin = GluOrigin.get_from_str(origin_str)
     else:
         raise MyProgramException(f"Wrong wantedness: {wantedness}")

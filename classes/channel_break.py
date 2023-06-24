@@ -27,18 +27,24 @@ class ChannelBreak(iSerializable):
 
     @property
     def schedule_timeband(self) -> Timeband|None:
-        return self._schedule_timeband
+        try:
+            return self._schedule_timeband
+        except:
+            return None
 
     @schedule_timeband.setter
-    def schedule_timeband(self, value: Timeband|None) -> None:
+    def schedule_timeband(self, value: Timeband) -> None:
         self._schedule_timeband = value
 
     @property
     def schedule_break(self) -> ScheduleBreak|None:
-        return self._schedule_break
+        try:
+            return self._schedule_break
+        except:
+            return None
 
     @schedule_break.setter
-    def schedule_break(self, value: ScheduleBreak|None) -> None:
+    def schedule_break(self, value: ScheduleBreak) -> None:
         self._schedule_break = value
 
     def get_closest_break(self, schedule_breaks: t.Collection) -> ScheduleBreak:
@@ -63,9 +69,12 @@ class ChannelBreak(iSerializable):
     def get_potential_matches_ratecard(self) -> t.Collection:
         potential_matches = t.Collection()
         schedule_break: ScheduleBreak
-        for schedule_break in self.schedule_timeband.schedule_breaks:
-            if schedule_break.break_info.ratecard == self.break_info.ratecard:
-                potential_matches.add(schedule_break, schedule_break.break_info.blockId)
+        if self.schedule_timeband is None:
+            pass
+        else:
+            for schedule_break in self.schedule_timeband.schedule_breaks:
+                if schedule_break.break_info.ratecard == self.break_info.ratecard:
+                    potential_matches.add(schedule_break, schedule_break.break_info.blockId)
         return potential_matches
 
 

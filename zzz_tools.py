@@ -4,6 +4,7 @@ import tkinter as tk
 from typing import List, Union, Any, Set
 
 import pandas as pd
+
 from classes.exceptions import MyProgramException
 from classes.result_folder import ResultFolder
 from zzz_projectTools import *
@@ -91,9 +92,10 @@ class GluFileType(Enum):
 
 
 def get_substring_between_parentheses(input_str):
-    open_paren_index = input_str.index("(")
-    close_paren_index = input_str.index(")")
-    inner_str = input_str[open_paren_index + 1 : close_paren_index]
+    start_index = input_str.find('(') + 1  # Find the index of the opening parenthesis and add 1 to skip it
+    end_index = input_str.rfind(')')  # Find the index of the closing parenthesis
+
+    inner_str = input_str[start_index:end_index]
     return inner_str
 
 

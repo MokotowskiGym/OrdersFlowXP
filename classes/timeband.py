@@ -1,10 +1,10 @@
 import zzz_tools as t
-from classes.iEmptyable import iEmptyable
+
 
 from classes.schedule_break import ScheduleBreak
 
 
-class Timeband(iEmptyable):
+class Timeband():
     def __init__(self, tbId: str, is_empty: bool = False):
         self.tbId = tbId
         self.schedule_breaks: t.Collection = t.Collection()
