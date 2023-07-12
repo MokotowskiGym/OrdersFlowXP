@@ -46,8 +46,10 @@ class MsgBoxResult(Enum):
 
 
 class Collection(dict):
-    def add(self, item, key: Union[str, int]):
-        if key in self:
+    def add(self, item, key: Union[str, int, None] = None):
+        if key is None:
+            key = len(self) + 1
+        elif key in self:
             raise KeyError(f'Key "{key}" already exists in collection')
         else:
             self[key] = item
@@ -57,14 +59,18 @@ class Collection(dict):
 
     def get_first_value(self):
         return next(iter(self.values()))
+
+
 def get_cannon_columns_set(cannon_columns_set: GluCannonColumnsSet) -> Set[str]:
     set_booking_org = set("blockId dateTime channelOrg ratecard".split())
     set_booking_processed = set_booking_org | set("channel supplier channelGroup tbId".split())
-    set_scheduleMatching =set( "blockId dateTime channel ratecard wantedness tbId1 tbId2 bookedness".split())
-    set_scheduleOrg = set("blockId	channel	programme blockType_org	blockType_mod xDate	xTime ratecard freeTime	week timeband wantedness bookedness	eqPriceNet grpTg_01 grpTg_02 grpTg_50 grpTg_98 grpTg_99 positionCode scheduleInfo".split())
+    set_scheduleMatching = set("blockId dateTime channel ratecard wantedness tbId1 tbId2 bookedness".split())
+    set_scheduleOrg = set(
+        "blockId	channel	programme blockType_org	blockType_mod xDate	xTime ratecard freeTime	week timeband wantedness bookedness	eqPriceNet grpTg_01 grpTg_02 grpTg_50 grpTg_98 grpTg_99 positionCode scheduleInfo".split()
+    )
     set_scheduleFull = set(set_scheduleOrg | set_scheduleMatching)
 
-    my_set:set[str]
+    my_set: set[str]
 
     if cannon_columns_set == GluCannonColumnsSet.BookingOrg:
         my_set = set_booking_org
@@ -92,8 +98,8 @@ class GluFileType(Enum):
 
 
 def get_substring_between_parentheses(input_str):
-    start_index = input_str.find('(') + 1  # Find the index of the opening parenthesis and add 1 to skip it
-    end_index = input_str.rfind(')')  # Find the index of the closing parenthesis
+    start_index = input_str.find("(") + 1  # Find the index of the opening parenthesis and add 1 to skip it
+    end_index = input_str.rfind(")")  # Find the index of the closing parenthesis
 
     inner_str = input_str[start_index:end_index]
     return inner_str
@@ -207,9 +213,9 @@ def export_df(
     debug_msg_base: str = "df '_1_' saved at:",
     export_dir: str = "",
     export_index: bool = False,
-    column_sep:str = ";",
-    decimal_sep:str = ","
-)->str:
+    column_sep: str = ";",
+    decimal_sep: str = ",",
+) -> str:
     if export_dir == "":
         export_dir = ResultFolder().get_result_dir()
     else:
@@ -231,6 +237,7 @@ def export_df(
 
     process_df_debug(df_debug_mode, file_path, df_caption, debug_msg_base)
     return file_path
+
 
 def get_dir_safe(dir_name: str) -> str:
     dir = os.path.join(os.getcwd(), dir_name)
@@ -266,6 +273,7 @@ def check_cannon_columns(
     cannon_columns_list: GluCannonColumnsSet = GluCannonColumnsSet.DoNotCheck,
     drop_excess_columns: bool = False,
 ):
+
     if cannon_columns_list != GluCannonColumnsSet.DoNotCheck:
         cannon_columns = get_cannon_columns_set(cannon_columns_list)
 
@@ -276,5 +284,5 @@ def check_cannon_columns(
             raise ValueError(f"Missing cannon columns in the DataFrame: {', '.join(missing_columns)}")
 
         if drop_excess_columns:
-            columns_to_drop:List[Any]=  list(set(df.columns) - set(cannon_columns))
-            df.drop( columns_to_drop, axis=1, inplace=True)
+            columns_to_drop: List[Any] = list(set(df.columns) - set(cannon_columns))
+            df.drop(columns_to_drop, axis=1, inplace=True)

@@ -11,6 +11,7 @@ import zzz_strings as STR_
 import zzz_tools as t
 from classes.booking import Booking, get_channel_breaks
 from classes.break_info import BreakInfo
+from classes.dfProcessor import get_df_processor
 from classes.exceptions import MyProgramException
 from classes.merger import get_merger
 from classes.schedule_break import ScheduleBreak
@@ -68,7 +69,6 @@ def get_date_time_polsat(xDate, xTime) -> datetime:
 def get_booking(
     supplier: GluSupplier,
     df_channelsMapping: pd.DataFrame,
-    df_copyIndexes: pd.DataFrame,
     booking_quality: GluBookingQuality,
 ) -> Booking:
     path = get_booking_path(supplier, booking_quality)
@@ -77,10 +77,6 @@ def get_booking(
         print(0 / 0)  # wywalić wczytywanie jako string
         df_booking = pd.read_excel(path, dtype=str)
 
-        #     dateTime = get_date_time_tvp(row["data_emisji"], row["godzina_emisji"], row["minuta_emisji"])
-        #     channel = row["kanal_telewizyjny"]
-        #     ratecard = 0 / 0
-
     elif supplier == GluSupplier.TVN:
         df_booking = pd.read_csv(path, sep=";", encoding="utf-8")
     #     dateTime = get_date_time_tvn(row["DATA"], row["PLANOWANA GODZ."])
@@ -88,16 +84,8 @@ def get_booking(
     #     ratecard = t.get_float(row["WARTOŚĆ SPOTU"])
 
     elif supplier == GluSupplier.POLSAT:
-        df_booking = pd.read_excel(path)
-        df_booking["CopyLength"] = df_booking["Długość"].str.replace('"', "").astype(int)
-        df_booking = get_merger(
-            "copy indexes", df_booking, df_copyIndexes, "CopyLength", case_sensitive=True
-        ).return_merged_df()
-        df_booking["dateTime"] = df_booking.apply(lambda x: get_date_time_polsat(x["Data"], x["Godzina"]), axis=1)
-        df_booking["channelOrg"] = df_booking["Stacja"]
-        df_booking["ratecard_indexed"] = df_booking.apply(lambda x: t.get_float(x["Base price"]), axis=1)
-        df_booking["ratecard"] = df_booking["ratecard_indexed"] / df_booking["CopyIndex"]
-        df_booking["blockId"] = df_booking["ID Bloku"]
+        df_booking = get_df_processor(GluDfProcessorType.SCHEDULE_POLSAT, path).get_df
+
     else:
         raise MyProgramException(f"Wrong supplier: {supplier}")
 
@@ -173,8 +161,10 @@ def get_channels_df(json_path: str) -> pd.DataFrame:
     return df
 
 
-def get_copy_indexes_df(path: str) -> pd.DataFrame:
-    with open(path, "r") as f:
+def get_copy_indexes_df() -> pd.DataFrame:
+    json_copyLengths_path = CONST_.JSON_COPY_INDEXES
+
+    with open(json_copyLengths_path, "r") as f:
         data = json.load(f)
 
     # Create a DataFrame from the JSON data
@@ -224,7 +214,7 @@ def check_time_space_consistency(df_booking: pd.DataFrame, df_schedule: pd.DataF
         df_schedule,
         "channel",
         "channel",
-        exception_type_unjoined= GluExceptionType.MERGER_ABSENT_CHANNELS,
+        exception_type_unjoined=GluExceptionType.MERGER_ABSENT_CHANNELS,
     ).return_merged_df()
 
     min_date_booking = df_booking["dateTime"].min()
@@ -244,22 +234,44 @@ def check_time_space_consistency(df_booking: pd.DataFrame, df_schedule: pd.DataF
             f"Schedule: {min_date_schedule} to {max_date_schedule}"
         )
 
-def get_empty_timeband()->Timeband:
+
+def get_empty_timeband() -> Timeband:
     timeband = Timeband(STR_.IRELEVANT)
     return timeband
 
-def get_empty_break_info()->BreakInfo:
-    break_info = BreakInfo(0,  CONST_.FAKE_DATE, CONST_.FAKE_INT, STR_.IRELEVANT)
+
+def get_empty_break_info() -> BreakInfo:
+    break_info = BreakInfo(0, CONST_.FAKE_DATE, CONST_.FAKE_INT, STR_.IRELEVANT)
     return break_info
-def get_empty_schedule_break(break_info:BreakInfo)->ScheduleBreak:
-    schedule_break = ScheduleBreak(break_info, get_empty_status_info(), STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, STR_.IRELEVANT, 999, STR_.IRELEVANT, 0, 0, 0, 0, 0, 50)
+
+
+def get_empty_schedule_break(break_info: BreakInfo) -> ScheduleBreak:
+    schedule_break = ScheduleBreak(
+        break_info,
+        get_empty_status_info(),
+        STR_.IRELEVANT,
+        STR_.IRELEVANT,
+        STR_.IRELEVANT,
+        STR_.IRELEVANT,
+        STR_.IRELEVANT,
+        999,
+        STR_.IRELEVANT,
+        0,
+        0,
+        0,
+        0,
+        0,
+        50,
+    )
     return schedule_break
-def get_empty_status_info()->StatusInfo:
+
+
+def get_empty_status_info() -> StatusInfo:
     status_info: StatusInfo = StatusInfo(subcampaign=-1, origin=GluOrigin.NotWanted, is_booked=False)
     return status_info
-def get_schedule_break_from_channel_break(break_info:BreakInfo)->ScheduleBreak:
 
 
+def get_schedule_break_from_channel_break(break_info: BreakInfo) -> ScheduleBreak:
     schedule_break = ScheduleBreak(
         break_info,
         get_empty_status_info(),
@@ -275,6 +287,6 @@ def get_schedule_break_from_channel_break(break_info:BreakInfo)->ScheduleBreak:
         0,
         0,
         0,
-        50
+        50,
     )
     return schedule_break

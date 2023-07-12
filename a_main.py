@@ -6,23 +6,21 @@ import zzz_tools as t
 from classes.schedule import get_schedule
 from zzz_enums import *
 
+
 # TODO: bookedness ogarnąć, empty schedule break, ctrl+F w edytorze
 def process_booking(
-        supplier: GluSupplier,
-        booking_quality: GluBookingQuality,
-        schedule_type: GluScheduleType,
-        do_export_debug_files:bool = True
+    supplier: GluSupplier,
+    booking_quality: GluBookingQuality,
+    schedule_type: GluScheduleType,
+    do_export_debug_files: bool = True,
 ) -> str:
     # print(calculate_circle_data(5, CircleDataType.PERIMETER))
     json_channels_path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\json channels.txt"
     json_copyLengths_path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\json copy lengths.txt"
 
-
-
     df_channelsMapping = ot.get_channels_df(json_channels_path)
-    df_copyIndexes = ot.get_copy_indexes_df(json_copyLengths_path)
 
-    booking = ot.get_booking(supplier, df_channelsMapping, df_copyIndexes, booking_quality=booking_quality)
+    booking = ot.get_booking(supplier, df_channelsMapping, booking_quality=booking_quality)
 
     schedule = get_schedule(schedule_type, df_channelsMapping)
 
