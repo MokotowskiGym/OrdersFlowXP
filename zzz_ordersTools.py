@@ -2,16 +2,13 @@ import json
 import os
 import re
 from datetime import datetime
-from typing import List
+from typing import List, Dict
 
 import pandas as pd
 
 import zzz_constants as CONST_
 import zzz_strings as STR_
-import zzz_tools as t
-from classes.booking import Booking, get_channel_breaks
 from classes.break_info import BreakInfo
-from classes.dfProcessor import get_df_processor
 from classes.exceptions import MyProgramException
 from classes.merger import get_merger
 from classes.schedule_break import ScheduleBreak
@@ -21,7 +18,6 @@ from classes.tv.channel import Channel
 from classes.tv.channel_group import ChannelGroup
 from classes.tv.supplier import Supplier
 from zzz_enums import *
-from zzz_projectTools import GluCannonColumnsSet
 
 
 def get_date_time_tvp(xDate: str, xHour: str, xMinute: str) -> datetime:
@@ -66,51 +62,6 @@ def get_date_time_polsat(xDate, xTime) -> datetime:
     return dt
 
 
-def get_booking(
-    supplier: GluSupplier,
-    df_channelsMapping: pd.DataFrame,
-    booking_quality: GluBookingQuality,
-) -> Booking:
-    path = get_booking_path(supplier, booking_quality)
-
-    if supplier == GluSupplier.TVP:
-        print(0 / 0)  # wywalić wczytywanie jako string
-        df_booking = pd.read_excel(path, dtype=str)
-
-    elif supplier == GluSupplier.TVN:
-        df_booking = pd.read_csv(path, sep=";", encoding="utf-8")
-    #     dateTime = get_date_time_tvn(row["DATA"], row["PLANOWANA GODZ."])
-    #     channel = row["KANAŁ"]
-    #     ratecard = t.get_float(row["WARTOŚĆ SPOTU"])
-
-    elif supplier == GluSupplier.POLSAT:
-        df_booking = get_df_processor(GluDfProcessorType.SCHEDULE_POLSAT, path).get_df
-
-    else:
-        raise MyProgramException(f"Wrong supplier: {supplier}")
-
-    t.check_cannon_columns(df_booking, GluCannonColumnsSet.BookingOrg, drop_excess_columns=True)
-    df_booking = get_merger(
-        "Merge channels",
-        df_booking,
-        df_channelsMapping,
-        "channelOrg",
-        right_on="channelPossibleName",
-        exception_type_unjoined=GluExceptionType.MERGER_ILLEGAL_CHANNELS_IN_BOOKING,
-    ).return_merged_df()
-
-    df_booking["tbId"] = df_booking.apply(
-        lambda row: t.getTimebandId(row["channel"], row["dateTime"], 30, 15, 30), axis=1
-    )
-
-    t.check_cannon_columns(df_booking, GluCannonColumnsSet.BookingProcessed, drop_excess_columns=True)
-    channel_breaks = get_channel_breaks(df_booking)
-    # t.msgBox("templarriuuuusz", f"channel_breaks: {len(channel_breaks)}")
-
-    booking = Booking(supplier, df_booking, channel_breaks)
-    return booking
-
-
 def get_suppliers(json_path: str) -> List[Supplier]:
     with open(json_path, "r") as f:
         data = json.load(f)
@@ -131,8 +82,8 @@ def get_suppliers(json_path: str) -> List[Supplier]:
     return suppliers
 
 
-def get_channels_df(json_path: str) -> pd.DataFrame:
-    with open(json_path, "r") as file:
+def get_channels_df() -> pd.DataFrame:
+    with open(CONST_.PATH_JSON_CHANNELS, "r") as file:
         json_channels = json.load(file)
 
     suppliers = []
@@ -162,7 +113,7 @@ def get_channels_df(json_path: str) -> pd.DataFrame:
 
 
 def get_copy_indexes_df() -> pd.DataFrame:
-    json_copyLengths_path = CONST_.JSON_COPY_INDEXES
+    json_copyLengths_path = CONST_.PATH_JSON_COPY_INDEXES
 
     with open(json_copyLengths_path, "r") as f:
         data = json.load(f)
@@ -190,21 +141,6 @@ def get_booking_path(supplier: GluSupplier, booking_quality: GluBookingQuality) 
     # elif Supplier == GluSupplier.TVP:
     #     file = "2 booking 2022-10-06 113747 TVP 1z2.xls"
     return os.path.join(folder, file)
-
-
-def get_schedule_path(schedule_type: GluScheduleType) -> str:
-    path: str
-    if schedule_type == GluScheduleType.OK_4CHANNELS_CLEAR:
-        path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1 schedule 2022-10-06 112529 Schedule czysta.txt"
-    elif schedule_type == GluScheduleType.ILLEGAL_CHANNELS:
-        path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1a schedule 2022-10-06 112529 Schedule czysta - wrong channels.txt"
-    elif schedule_type == GluScheduleType.OK_4CHANNELS_1WANTED:
-        path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1b schedule 2022-10-06 112529 Schedule wanted.txt"
-
-    else:
-        raise ValueError("Wrong schedule type")
-
-    return path
 
 
 def check_time_space_consistency(df_booking: pd.DataFrame, df_schedule: pd.DataFrame):
@@ -267,7 +203,7 @@ def get_empty_schedule_break(break_info: BreakInfo) -> ScheduleBreak:
 
 
 def get_empty_status_info() -> StatusInfo:
-    status_info: StatusInfo = StatusInfo(subcampaign=-1, origin=GluOrigin.NotWanted, is_booked=False)
+    status_info: StatusInfo = StatusInfo(subcampaign_id=-1, origin=GluOrigin.NotWanted, is_booked=False)
     return status_info
 
 
@@ -290,3 +226,7 @@ def get_schedule_break_from_channel_break(break_info: BreakInfo) -> ScheduleBrea
         50,
     )
     return schedule_break
+
+
+def get_subcampaigns_dict(copiesOrg: List[str], copies: List[str]) -> Dict[str, str]:
+    existing_dict: Dict[str, str]

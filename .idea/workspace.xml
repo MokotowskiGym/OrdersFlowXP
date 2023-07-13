@@ -6,15 +6,452 @@
   <component name="BlackConnectSettings" port="45490" lineLength="120" triggerOnEachSave="true" triggerOnReformat="true" />
   <component name="ChangeListManager">
     <list default="true" id="364160d3-0f72-4b22-ba95-24e88e935ebd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/classes/column_def.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classes/dfProcessor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/classes/subcampaign.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dict subcampaignss.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/rozkminki/słownikowanie.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/a_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/a_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/channels, groups, suppliers .xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/project/channels, groups, suppliers .xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/booking.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/booking.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/channel_break.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/channel_break.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/dfProcessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/dfProcessor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/schedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/schedule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/schedule_break.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/schedule_break.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/status_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/status_info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/d_process_schedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/d_process_schedule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/source/1b schedule 2022-10-06 112529 Schedule wanted.txt" beforeDir="false" afterPath="$PROJECT_DIR$/project/source/1b schedule 2022-10-06 112529 Schedule wanted.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/source/schedule rozkminki.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/project/source/schedule rozkminki.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 121744/booking_processed 2023-05-08 121744.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 121744/channel breaks 2023-05-08 121751.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 121744/channels_mapping 2023-05-08 121751.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 121744/schedule_processed 2023-05-08 121744.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 122310/Merge channels/df1 2023-05-08 122314.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 122310/Merge channels/df2 2023-05-08 122314.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 122310/Merge channels/merged_df 2023-05-08 122310.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 123126/Merge channels/df1 2023-05-08 123131.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 123126/Merge channels/df2 2023-05-08 123131.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 123126/Merge channels/merged_df 2023-05-08 123126.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 123813/booking_processed 2023-05-08 123813.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 123813/channel breaks 2023-05-08 123820.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 123813/channels_mapping 2023-05-08 123820.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 123813/schedule_processed 2023-05-08 123813.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 124452/booking_processed 2023-05-08 124452.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 124452/channel breaks 2023-05-08 124459.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 124452/channels_mapping 2023-05-08 124459.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 124452/schedule_processed 2023-05-08 124452.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 124540/booking_processed 2023-05-08 124540.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 124540/channel breaks 2023-05-08 124546.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 124540/channels_mapping 2023-05-08 124546.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 124540/schedule_processed 2023-05-08 124540.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125541/booking_processed 2023-05-08 125541.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125541/channel breaks 2023-05-08 125547.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125541/channels_mapping 2023-05-08 125547.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125541/schedule_processed 2023-05-08 125541.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125708/booking_processed 2023-05-08 125708.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125708/channel breaks 2023-05-08 125715.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125708/channels_mapping 2023-05-08 125715.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125708/schedule_processed 2023-05-08 125708.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125723/booking_processed 2023-05-08 125723.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125723/channel breaks 2023-05-08 125730.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125723/channels_mapping 2023-05-08 125730.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 125723/schedule_processed 2023-05-08 125723.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 130006/booking_processed 2023-05-08 130006.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 130006/channel breaks 2023-05-08 130012.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 130006/channels_mapping 2023-05-08 130012.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 130006/matching 2023-05-08 130006.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 130006/schedule_processed 2023-05-08 130006.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 130433/booking_processed 2023-05-08 130434.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 130433/channel breaks 2023-05-08 130440.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 130433/channels_mapping 2023-05-08 130440.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 130433/matching 2023-05-08 130433.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 130433/schedule_processed 2023-05-08 130434.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 131418/booking_processed 2023-05-08 131418.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 131418/channel breaks 2023-05-08 131425.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 131418/channels_mapping 2023-05-08 131425.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 131418/matching 2023-05-08 131418.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 131418/schedule_processed 2023-05-08 131419.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 131904/booking_processed 2023-05-08 131904.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 131904/channel breaks 2023-05-08 131910.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 131904/channels_mapping 2023-05-08 131910.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 131904/matching 2023-05-08 131904.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 131904/schedule_processed 2023-05-08 131904.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 132345/booking_processed 2023-05-08 132345.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 132345/channel breaks 2023-05-08 132351.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 132345/channels_mapping 2023-05-08 132351.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 132345/matching 2023-05-08 132345.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 132345/schedule_processed 2023-05-08 132345.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 132703/booking_processed 2023-05-08 132703.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 132703/channel breaks 2023-05-08 132709.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 132703/channels_mapping 2023-05-08 132709.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 132703/matching 2023-05-08 132703.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 132703/schedule_processed 2023-05-08 132703.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 165624/booking_processed 2023-05-08 165624.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 165624/channel breaks 2023-05-08 165631.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 165624/channels_mapping 2023-05-08 165631.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 165624/matching 2023-05-08 165624.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 165624/schedule_processed 2023-05-08 165624.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 170644/booking_processed 2023-05-08 170644.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 170644/channel breaks 2023-05-08 170650.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 170644/channels_mapping 2023-05-08 170650.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 170644/matching 2023-05-08 170644.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 170644/schedule_processed 2023-05-08 170644.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 171807/1a schedule_processed 2023-05-08 171807.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 171807/1b booking_processed 2023-05-08 171814.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 171807/2 matching 2023-05-08 171814.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 171807/channel breaks 2023-05-08 171814.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 171807/channels_mapping 2023-05-08 171814.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 173048/1a schedule_processed 2023-05-08 173048.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 173048/1b booking_processed 2023-05-08 173055.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 173048/2 matching 2023-05-08 173055.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 173048/channel breaks 2023-05-08 173055.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 173048/channels_mapping 2023-05-08 173055.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 173639/1a schedule_processed 2023-05-08 173639.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 173639/1b booking_processed 2023-05-08 173646.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 173639/2 matching 2023-05-08 173646.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 173639/channel breaks 2023-05-08 173646.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-08 173639/channels_mapping 2023-05-08 173646.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101252/Merge channels/df1 2023-05-09 101254.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101252/Merge channels/df2 2023-05-09 101254.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101252/Merge channels/merged_df 2023-05-09 101252.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101306/Merge channels/df1 2023-05-09 101320.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101306/Merge channels/df2 2023-05-09 101320.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101306/Merge channels/merged_df 2023-05-09 101306.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101458/Merge channels/df1 2023-05-09 101459.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101458/Merge channels/df2 2023-05-09 101459.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101458/Merge channels/merged_df 2023-05-09 101458.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101506/Merge channels/df1 2023-05-09 101510.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101506/Merge channels/df2 2023-05-09 101510.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101506/Merge channels/merged_df 2023-05-09 101506.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101530/Merge channels/merged_df 2023-05-09 101530.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 101625/Merge channels/merged_df 2023-05-09 101625.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102523/merged_df 2023-05-09 102523.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102545/df1 2023-05-09 102545.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102545/df2 2023-05-09 102545.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102545/merged_df 2023-05-09 102545.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102609/df1 2023-05-09 102609.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102609/df2 2023-05-09 102609.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102609/merged_df 2023-05-09 102609.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102707/df1 2023-05-09 102707.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102707/df2 2023-05-09 102707.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102707/merged_df 2023-05-09 102707.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102829/df1 2023-05-09 102831.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102829/df2 2023-05-09 102834.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 102829/merged_df 2023-05-09 102829.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 103505/df1 2023-05-09 103505.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 103505/df2 2023-05-09 103505.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 103505/merged_df 2023-05-09 103505.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 104149/merged_df 2023-05-09 104149.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 104358/df1 2023-05-09 104358.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 104358/df2 2023-05-09 104358.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 104358/merged_df 2023-05-09 104358.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 104427/df1 2023-05-09 104427.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 104427/df2 2023-05-09 104427.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 104427/merged_df 2023-05-09 104427.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 104448/df1 2023-05-09 104448.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 104448/df2 2023-05-09 104448.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 104448/merged_df 2023-05-09 104448.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105215/df1 2023-05-09 105215.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105215/df2 2023-05-09 105215.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105215/merged_df 2023-05-09 105215.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105401/df1 2023-05-09 105401.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105401/df2 2023-05-09 105401.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105401/merged_df 2023-05-09 105401.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105651/Merge channels/df1 2023-05-09 105651.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105651/Merge channels/df2 2023-05-09 105651.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105651/Merge channels/merged_df 2023-05-09 105651.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105945/Merge channels/df1 2023-05-09 105945.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105945/Merge channels/df2 2023-05-09 105945.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105945/Merge channels/merged_df 2023-05-09 105945.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105945/Processed schedule/df1 2023-05-09 105952.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105945/Processed schedule/df2 2023-05-09 105954.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 105945/Processed schedule/merged_df 2023-05-09 105954.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110338/Merge channels/df1 2023-05-09 110338.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110338/Merge channels/df2 2023-05-09 110338.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110338/Merge channels/merged_df 2023-05-09 110338.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110338/Processed schedule/df1 2023-05-09 110340.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110338/Processed schedule/df2 2023-05-09 110343.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110338/Processed schedule/merged_df 2023-05-09 110343.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110356/Merge channels/df1 2023-05-09 110356.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110356/Merge channels/df2 2023-05-09 110356.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110356/Merge channels/merged_df 2023-05-09 110356.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110356/Processed schedule/df1 2023-05-09 110359.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110356/Processed schedule/df2 2023-05-09 110401.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110356/Processed schedule/merged_df 2023-05-09 110401.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110419/Merge channels/df1 2023-05-09 110419.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110419/Merge channels/df2 2023-05-09 110419.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110419/Merge channels/merged_df 2023-05-09 110419.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110419/Processed schedule/df1 2023-05-09 110421.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110419/Processed schedule/df2 2023-05-09 110423.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110419/Processed schedule/merged_df 2023-05-09 110423.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110604/Merge channels/df1 2023-05-09 110604.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110604/Merge channels/df2 2023-05-09 110604.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110604/Merge channels/merged_df 2023-05-09 110604.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110604/Processed schedule/df1 2023-05-09 110605.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110604/Processed schedule/df2 2023-05-09 110608.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110604/Processed schedule/merged_df 2023-05-09 110608.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110653/Merge channels/df1 2023-05-09 110653.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 110828/Merge channels/df1 2023-05-09 110828.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 111604/Merge channels/df1 2023-05-09 111604.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 111604/Merge channels/df2 2023-05-09 111604.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 111604/Merge channels/merged_df 2023-05-09 111604.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114514/Merge channels/df1 2023-05-09 114514.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114514/Merge channels/df2 2023-05-09 114514.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114514/Merge channels/merged_df 2023-05-09 114514.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114552/Merge channels/df1 2023-05-09 114552.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114552/Merge channels/df2 2023-05-09 114552.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114552/Merge channels/merged_df 2023-05-09 114552.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114552/Processed schedule/df1 2023-05-09 114552.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114552/Processed schedule/df2 2023-05-09 114554.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114552/Processed schedule/merged_df 2023-05-09 114554.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114655/Merge channels/df1 2023-05-09 114655.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114655/Merge channels/df2 2023-05-09 114655.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114655/Merge channels/merged_df 2023-05-09 114655.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114707/Merge channels/df1 2023-05-09 114707.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114707/Merge channels/df2 2023-05-09 114707.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 114707/Merge channels/merged_df 2023-05-09 114707.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115215/Merge channels/df1 2023-05-09 115215.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115215/Merge channels/df2 2023-05-09 115215.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115215/Merge channels/merged_df 2023-05-09 115215.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115247/Merge channels/df1 2023-05-09 115247.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115247/Merge channels/df2 2023-05-09 115247.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115247/Merge channels/merged_df 2023-05-09 115247.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115454/Merge channels/df1 2023-05-09 115454.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115454/Merge channels/df2 2023-05-09 115455.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115454/Merge channels/merged_df 2023-05-09 115455.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115521/Merge channels/df1 2023-05-09 115521.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115521/Merge channels/df2 2023-05-09 115521.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115521/Merge channels/merged_df 2023-05-09 115521.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115539/Merge channels/df1 2023-05-09 115539.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115539/Merge channels/df2 2023-05-09 115539.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115539/Merge channels/merged_df 2023-05-09 115539.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115610/Merge channels/df1 2023-05-09 115610.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115610/Merge channels/df2 2023-05-09 115610.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 115610/Merge channels/merged_df 2023-05-09 115610.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 120736/Merge channels/df1 2023-05-09 120736.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 120736/Merge channels/df2 2023-05-09 120736.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 120736/Merge channels/merged_df 2023-05-09 120736.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 120807/Merge channels/df1 2023-05-09 120807.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 120807/Merge channels/df2 2023-05-09 120807.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 120807/Merge channels/merged_df 2023-05-09 120807.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 120925/Merge channels/df1 2023-05-09 120925.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 120925/Merge channels/df2 2023-05-09 120925.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 120925/Merge channels/merged_df 2023-05-09 120925.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 121013/Merge channels/df1 2023-05-09 121013.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 121013/Merge channels/df2 2023-05-09 121013.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 121013/Merge channels/merged_df 2023-05-09 121013.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 121429/Merge channels/df1 2023-05-09 121429.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 121446/Merge channels/df1 2023-05-09 121446.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 121446/Merge channels/df2 2023-05-09 121446.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 121446/Merge channels/merged_df 2023-05-09 121446.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 121631/Merge channels/df1 2023-05-09 121631.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 121631/Merge channels/df2 2023-05-09 121631.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 121631/Merge channels/merged_df 2023-05-09 121631.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122028/Merge channels/df1 2023-05-09 122028.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122028/Merge channels/df2 2023-05-09 122028.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122028/Merge channels/merged_df 2023-05-09 122028.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122028/Processed schedule/df1 2023-05-09 122028.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122028/Processed schedule/df2 2023-05-09 122030.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122028/Processed schedule/merged_df 2023-05-09 122030.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122115/Merge channels/df1 2023-05-09 122116.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122115/Merge channels/df2 2023-05-09 122116.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122115/Merge channels/merged_df 2023-05-09 122120.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122327/Merge channels/df1 2023-05-09 122327.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122327/Merge channels/df2 2023-05-09 122327.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122327/Merge channels/merged_df 2023-05-09 122327.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122422/Merge channels/df1 2023-05-09 122422.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122422/Merge channels/df2 2023-05-09 122422.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 122422/Merge channels/merged_df 2023-05-09 122422.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 123433/temp 2023-05-09 123433.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 124427/Timebands matching/df1 2023-05-09 124427.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 124427/Timebands matching/df2 2023-05-09 124427.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 124427/Timebands matching/merged_df 2023-05-09 124434.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 130852/Missing cannong columns for 'BookingProcessed' 2023-05-09 130852.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131354/Timebands matching/df1 2023-05-09 131354.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131354/Timebands matching/df2 2023-05-09 131354.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131400/Timebands matching/df1 2023-05-09 131400.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131400/Timebands matching/df2 2023-05-09 131400.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131418/Timebands matching/df1 2023-05-09 131418.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131418/Timebands matching/df2 2023-05-09 131418.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131645/Timebands matching/df1 2023-05-09 131645.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131645/Timebands matching/df2 2023-05-09 131645.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131807/Timebands matching/df1 2023-05-09 131807.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131807/Timebands matching/df2 2023-05-09 131807.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131915/Timebands matching/df1 2023-05-09 131915.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 131915/Timebands matching/df2 2023-05-09 131915.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132116/Merge channels/df1 2023-05-09 132116.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132116/Merge channels/df2 2023-05-09 132116.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132151/Merge channels/df1 2023-05-09 132151.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132151/Merge channels/df2 2023-05-09 132151.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132151/Merge channels/merged_df 2023-05-09 132151.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132205/Merge channels/df1 2023-05-09 132205.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132205/Merge channels/df2 2023-05-09 132205.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132205/Merge channels/merged_df 2023-05-09 132205.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132423/Merge channels/df1 2023-05-09 132423.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132423/Merge channels/df2 2023-05-09 132423.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132423/Merge channels/merged_df 2023-05-09 132423.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132516/Processed schedule/df1 2023-05-09 132516.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132516/Processed schedule/df2 2023-05-09 132518.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132516/Processed schedule/merged_df 2023-05-09 132518.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132747/Merge channels/df1 2023-05-09 132747.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132747/Merge channels/df2 2023-05-09 132747.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132758/Processed schedule/df1 2023-05-09 132758.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132758/Processed schedule/df2 2023-05-09 132800.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132758/Processed schedule/merged_df 2023-05-09 132800.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132804/Processed schedule/df1 2023-05-09 132804.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132804/Processed schedule/df2 2023-05-09 132806.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 132804/Processed schedule/merged_df 2023-05-09 132806.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 134034/Processed schedule/df1 2023-05-09 134034.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 134034/Processed schedule/df2 2023-05-09 134036.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 134034/Processed schedule/merged_df 2023-05-09 134036.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 134236/Merge channels/df1 2023-05-09 134236.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 134236/Merge channels/df2 2023-05-09 134236.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 134258/Timebands matching/df1 2023-05-09 134258.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 134258/Timebands matching/df2 2023-05-09 134258.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 134826/Timebands matching/df1 2023-05-09 134826.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 134826/Timebands matching/df2 2023-05-09 134826.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 135204/1a schedule_processed 2023-05-09 135204.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 135204/1b booking_processed 2023-05-09 135208.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 135204/2 matching 2023-05-09 135208.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 135204/channel breaks 2023-05-09 135208.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 135204/channels_mapping 2023-05-09 135208.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 153238/1a schedule_processed 2023-05-09 153238.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 153238/1b booking_processed 2023-05-09 153243.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 153238/2 matching 2023-05-09 153243.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 153238/channel breaks 2023-05-09 153243.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 153238/channels_mapping 2023-05-09 153243.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155107/1a schedule_processed 2023-05-09 155107.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155107/1b booking_processed 2023-05-09 155111.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155107/2 matching 2023-05-09 155111.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155107/channel breaks 2023-05-09 155111.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155107/channels_mapping 2023-05-09 155111.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155201/1a schedule_processed 2023-05-09 155201.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155201/1b booking_processed 2023-05-09 155205.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155201/2 matching 2023-05-09 155205.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155201/channel breaks 2023-05-09 155205.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155201/channels_mapping 2023-05-09 155205.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155353/Missing cannong columns for 'Matching' 2023-05-09 155353.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155353/Timebands matching/df1 2023-05-09 155353.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155353/Timebands matching/df2 2023-05-09 155353.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 155353/Timebands matching/merged_df 2023-05-09 155358.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 160046/Missing cannong columns for 'ScheduleProcessedFull' 2023-05-09 160046.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 160219/Missing cannong columns for 'ScheduleProcessedFull' 2023-05-09 160219.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161551/Missing cannong columns for 'ScheduleProcessedFull' 2023-05-09 161551.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161643/Timebands matching/df1 2023-05-09 161643.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161643/Timebands matching/df2 2023-05-09 161643.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161643/Timebands matching/merged_df 2023-05-09 161647.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161710/Timebands matching/df1 2023-05-09 161710.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161710/Timebands matching/df2 2023-05-09 161710.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161710/Timebands matching/merged_df 2023-05-09 161714.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161911/Missing cannong columns for 'Matching' 2023-05-09 161911.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161911/Timebands matching/df1 2023-05-09 161911.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161911/Timebands matching/df2 2023-05-09 161911.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 161911/Timebands matching/merged_df 2023-05-09 161915.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 162151/Missing cannong columns for 'Matching' 2023-05-09 162151.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 162151/Timebands matching/df1 2023-05-09 162151.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 162151/Timebands matching/df2 2023-05-09 162151.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 162151/Timebands matching/merged_df 2023-05-09 162156.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 162202/Missing cannong columns for 'Matching' 2023-05-09 162202.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 162202/Timebands matching/df1 2023-05-09 162202.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 162202/Timebands matching/df2 2023-05-09 162202.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 162202/Timebands matching/merged_df 2023-05-09 162207.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 184702/1a schedule_processed 2023-05-09 184702.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 184702/1b booking_processed 2023-05-09 184707.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 184702/2 matching 2023-05-09 184707.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 184702/channel breaks 2023-05-09 184707.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-09 184702/channels_mapping 2023-05-09 184707.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130335/1a schedule_processed 2023-05-11 130335.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130335/1b booking_processed 2023-05-11 130339.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130335/2 matching 2023-05-11 130339.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130335/channel breaks 2023-05-11 130339.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130335/channels_mapping 2023-05-11 130339.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130842/1a schedule_processed 2023-05-11 130842.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130842/1b booking_processed 2023-05-11 130847.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130842/2 matching 2023-05-11 130847.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130842/channel breaks 2023-05-11 130847.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130842/channels_mapping 2023-05-11 130847.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130901/1a schedule_processed 2023-05-11 130901.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130901/1b booking_processed 2023-05-11 130906.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130901/2 matching 2023-05-11 130906.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130901/channel breaks 2023-05-11 130906.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 130901/channels_mapping 2023-05-11 130906.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 134051/Missing cannong columns for 'ScheduleMatching' 2023-05-11 134051.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 140013/1a schedule_processed 2023-05-11 140013.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 140013/1b booking_processed 2023-05-11 140014.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 140013/channel breaks 2023-05-11 140014.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 140013/channels_mapping 2023-05-11 140014.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 140932/channel breaks 2023-05-11 140932.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 141922/channel breaks 2023-05-11 141922.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 141922/schedule 2023-05-11 141922.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 142400/channel breaks 2023-05-11 142400.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 142400/schedule 2023-05-11 142401.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 144327/channel breaks 2023-05-11 144327.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 144327/schedule 2023-05-11 144327.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 144615/channel breaks 2023-05-11 144615.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 144615/schedule 2023-05-11 144615.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 145138/channel breaks 2023-05-11 145138.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 145138/schedule 2023-05-11 145138.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 145653/channel breaks 2023-05-11 145653.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 145653/schedule 2023-05-11 145653.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 145953/Missing cannong columns for 'BookingProcessed' 2023-05-11 145953.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 150011/channel breaks 2023-05-11 150011.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 150011/schedule 2023-05-11 150011.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 150327/channel breaks 2023-05-11 150327.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-11 150327/schedule 2023-05-11 150327.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 100026/channel breaks 2023-05-12 100026.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 100026/schedule 2023-05-12 100026.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 124729/channel breaks 2023-05-12 124729.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 124729/schedule 2023-05-12 124729.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 140518/channel breaks 2023-05-12 140518.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 141403/channel breaks 2023-05-12 141403.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142341/channel breaks 2023-05-12 142341.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142416/channel breaks 2023-05-12 142416.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142424/channel breaks 2023-05-12 142424.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142424/schedule 2023-05-12 142424.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142617/channel breaks 2023-05-12 142617.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142617/schedule 2023-05-12 142617.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142704/channel breaks 2023-05-12 142704.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142715/channel breaks 2023-05-12 142715.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142715/schedule 2023-05-12 142715.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142945/channel breaks 2023-05-12 142945.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 142945/schedule 2023-05-12 142945.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 154148/channel breaks 2023-05-12 154148.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 154148/schedule 2023-05-12 154148.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 154555/channel breaks 2023-05-12 154555.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 154555/schedule 2023-05-12 154555.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 155944/channel breaks 2023-05-12 155944.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 155944/schedule 2023-05-12 155944.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 160252/channel breaks 2023-05-12 160252.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 160252/schedule 2023-05-12 160252.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 160339/channel breaks 2023-05-12 160339.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 160339/schedule 2023-05-12 160339.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 161025/channel breaks 2023-05-12 161025.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 161025/schedule 2023-05-12 161025.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 162304/channel breaks 2023-05-12 162304.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 162304/schedule 2023-05-12 162304.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 162710/channel breaks 2023-05-12 162710.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 162710/schedule 2023-05-12 162710.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 162813/channel breaks 2023-05-12 162813.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 162813/schedule 2023-05-12 162813.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 162820/channel breaks 2023-05-12 162820.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 162820/schedule 2023-05-12 162820.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 162838/channel breaks 2023-05-12 162838.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 162838/schedule 2023-05-12 162838.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 164106/channel breaks 2023-05-12 164106.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 164106/schedule 2023-05-12 164106.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 164234/channel breaks 2023-05-12 164234.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 164234/schedule 2023-05-12 164235.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 164553/channel breaks 2023-05-12 164553.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 164553/schedule 2023-05-12 164553.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 174521/channel breaks 2023-05-12 174521.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 174521/schedule 2023-05-12 174521.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 175308/channel breaks 2023-05-12 175308.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 175308/schedule 2023-05-12 175308.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 175459/channel breaks 2023-05-12 175459.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/2023-05-12 175459/schedule 2023-05-12 175459.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_channels_mapping.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_channels_mapping.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zzz_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zzz_enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_enums.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zzz_ordersTools.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_ordersTools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zzz_projectTools.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_projectTools.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zzz_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_tools.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,7 +561,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for test_process_booking.TestProcessBooking.test_absent" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for test_channels_mapping.TestChannelsMapping" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Mnrw OrdersFlow" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -135,11 +572,11 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_process_booking.TestProcessBooking.test_absent&quot;" />
+      <option name="_new_target" value="&quot;test_channels_mapping.TestChannelsMapping&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for test_process_booking.TestProcessBooking.test_illegal_channels_in_booking" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for test_process_booking.TestProcessBooking" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Mnrw OrdersFlow" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -150,7 +587,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_process_booking.TestProcessBooking.test_illegal_channels_in_booking&quot;" />
+      <option name="_new_target" value="&quot;test_process_booking.TestProcessBooking&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -187,10 +624,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.a_main (1)" />
-        <item itemvalue="Python tests.Python tests for test_process_booking.TestProcessBooking.test_illegal_channels_in_schedule" />
-        <item itemvalue="Python tests.Python tests for test_process_booking.TestProcessBooking.test_illegal_channels_in_booking" />
-        <item itemvalue="Python tests.Python tests for test_process_booking.TestProcessBooking.test_absent" />
+        <item itemvalue="Python tests.Python tests for test_process_booking.TestProcessBooking" />
+        <item itemvalue="Python tests.Python tests for test_channels_mapping.TestChannelsMapping" />
         <item itemvalue="Python tests.Python tests for test_process_booking.TestProcessBooking.test_valid" />
+        <item itemvalue="Python tests.Python tests for test_process_booking.TestProcessBooking.test_illegal_channels_in_schedule" />
       </list>
     </recent_temporary>
   </component>
@@ -245,7 +682,8 @@
       <workItem from="1688746186853" duration="311000" />
       <workItem from="1688746527861" duration="34000" />
       <workItem from="1689153524065" duration="76000" />
-      <workItem from="1689154456113" duration="6747000" />
+      <workItem from="1689154456113" duration="11089000" />
+      <workItem from="1689240465747" duration="12158000" />
     </task>
     <task id="LOCAL-00001" summary="fghdfh">
       <created>1686065004210</created>
@@ -338,7 +776,15 @@
       <option name="project" value="LOCAL" />
       <updated>1687632920474</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="wywalone none">
+      <option name="closed" value="true" />
+      <created>1689161286366</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1689161286366</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,16 +829,6 @@
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/classes/schedule.py</url>
-          <line>83</line>
-          <option name="timeStamp" value="73" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/classes/schedule_break.py</url>
-          <line>80</line>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/classes/exceptions.py</url>
           <line>27</line>
           <option name="timeStamp" value="84" />
@@ -403,29 +839,9 @@
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/d_process_schedule.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/classes/schedule.py</url>
-          <line>98</line>
-          <option name="timeStamp" value="92" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/classes/dfProcessor.py</url>
-          <line>127</line>
+          <line>168</line>
           <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/zzz_ordersTools.py</url>
-          <line>91</line>
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/classes/dfProcessor.py</url>
-          <line>160</line>
-          <option name="timeStamp" value="106" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -438,11 +854,11 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$.coverage" NAME=" Coverage Results" MODIFIED="1687450267647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$.coverage" NAME=" Coverage Results" MODIFIED="1689240779746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$zzz_sandbox.coverage" NAME="zzz_sandbox Coverage Results" MODIFIED="1683891782269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mnrw_OrdersFlow$main.coverage" NAME="main Coverage Results" MODIFIED="1680877121827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$a_main.coverage" NAME="a_main Coverage Results" MODIFIED="1687356519516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$main.coverage" NAME="a_main Coverage Results" MODIFIED="1680949697472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$a_main__1_.coverage" NAME="a_main (1) Coverage Results" MODIFIED="1689161264266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$a_main__1_.coverage" NAME="a_main (1) Coverage Results" MODIFIED="1689253643806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

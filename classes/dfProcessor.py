@@ -20,7 +20,7 @@ class DfProcessorConfig:
     decimal_separator: str = ","  # Specify the decimal separator
     date_columns_to_parse: Optional[List[str]] = None  # Specify the date columns to parse
     import_only_defined_columns: bool = True  # Specify if only defined columns should be imported
-
+    encoding: str = "utf-8"  # Specify the encoding of the file
     def add_column(self, name_org: str, name_mod: str, data_type: Optional[str] = None) -> None:
         column_def = columnDef(name_org, name_mod, data_type)
         self.column_defs.add(column_def, name_mod)
@@ -35,12 +35,36 @@ class DfProcessorConfig:
                 self.add_column("Time", "xTime")  # , "Datetime64[ns]")
                 self.add_column("Prog Campaign", "programme")
                 self.add_column("Cost", "ratecard")
-            case GluDfProcessorType.SCHEDULE_POLSAT:
+            case GluDfProcessorType.BOOKING_POLSAT:
                 self.add_column("", "CopyLength")  # "Datetime64[ns]")
                 self.add_column("", "dateTime")
                 self.add_column("", "channelOrg")
                 self.add_column("", "ratecard")
                 self.add_column("", "blockId")
+                self.add_column("", "subcampaign_org")
+            case GluDfProcessorType.SCHEDULE:
+                self.add_column("blockId", "blockId")
+                self.add_column("channel", "channel")
+                self.add_column("programme", "programme")
+                self.add_column("blockType_org", "blockType_org")
+                self.add_column("blockType_mod", "blockType_mod")
+                self.add_column("xDate", "xDate")
+                self.add_column("xTime", "xTime")
+                self.add_column("ratecard", "ratecard")
+                self.add_column("freeTime", "freeTime")
+                self.add_column("week", "week")
+                self.add_column("timeband", "timeband")
+                self.add_column("wantedness", "wantedness")
+                self.add_column("bookedness", "bookedness")
+                self.add_column("eqPriceNet", "eqPriceNet")
+                self.add_column("grpTg_01", "grpTg_01")
+                self.add_column("grpTg_02", "grpTg_02")
+                self.add_column("grpTg_50", "grpTg_50")
+                self.add_column("grpTg_98", "grpTg_98")
+                self.add_column("grpTg_99", "grpTg_99")
+                self.add_column("positionCode", "positionCode")
+                self.add_column("scheduleInfo", "scheduleInfo")
+
             case _:
                 raise ValueError(f"Wrong df_processor_type: {self.df_processor_type}")
 
@@ -49,8 +73,21 @@ def get_df_processor_config(df_processor_type: GluDfProcessorType):
     match df_processor_type:
         case GluDfProcessorType.HISTORY_ORG:
             config = DfProcessorConfig(df_processor_type, 0, GluFileType.XLSX)
-        case GluDfProcessorType.SCHEDULE_POLSAT:
+        case GluDfProcessorType.BOOKING_POLSAT:
             config = DfProcessorConfig(df_processor_type, 0, GluFileType.XLSX, import_only_defined_columns=False)
+        case GluDfProcessorType.SCHEDULE:
+            config = DfProcessorConfig(
+                    df_processor_type,
+                    0,
+                    GluFileType.CSV,
+                    import_only_defined_columns=False ,
+                    date_columns_to_parse=["xDate"],
+                    date_format="%Y-%m-%d %H:%M:%S",
+                    column_separator=";",
+                    decimal_separator=",",
+                    encoding="utf-8"
+            )
+
         case _:
             raise ValueError(f"Wrong df_processor_type: {df_processor_type}")
     config.define_columns()
@@ -61,6 +98,10 @@ class DfProcessor:
     def __init__(self, cfg: DfProcessorConfig, file_path: str):
         self.file_path = file_path
         self.cfg = cfg
+
+    @property
+    def get_file_name(self) -> str:
+        return self.file_path.split("\\")[-1]
 
     @property
     def _get_column_orgs(self) -> List[str]:
@@ -112,6 +153,8 @@ class DfProcessor:
         else:
             if isinstance(self.cfg.date_columns_to_parse, str):
                 parse_dates = [self.cfg.date_columns_to_parse]
+            else:
+                parse_dates = self.cfg.date_columns_to_parse
 
         df = pd.read_csv(
             self.file_path,
@@ -144,7 +187,7 @@ class DfProcessor:
     def _transform_before_check_header(self, df: pd.DataFrame) -> pd.DataFrame:
 
         match self.cfg.df_processor_type:
-            case GluDfProcessorType.SCHEDULE_POLSAT:
+            case GluDfProcessorType.BOOKING_POLSAT:
                 from zzz_ordersTools import get_date_time_polsat,get_copy_indexes_df
 
                 df_copyIndexes = get_copy_indexes_df()
@@ -156,21 +199,23 @@ class DfProcessor:
                 df["channelOrg"] = df["Stacja"]
                 df["ratecard_indexed"] = df.apply(lambda x: get_float(x["Base price"]), axis=1)
                 df["ratecard"] = df["ratecard_indexed"] / df["CopyIndex"]
+                df["subcampaign_org"] = df["Długość"] + "-" + self.get_file_name
                 df.rename(columns={"ID Bloku": "blockId"}, inplace=True)
-
+            case GluDfProcessorType.SCHEDULE:
+                pass
             case _:
                 raise NotImplementedError
         return df
 
     @property
     def get_df(self) -> pd.DataFrame:
-        df: pd.DataFrame = self._get_df_org()
+        df: pd.DataFrame = self._get_df_org()           # bierze albo wszystkie albo zdefiniowane w zależność od cfg.import_only_defined_columns
         df =  self._transform_before_check_header(df)
         self._rename_columns(df)
-        self._mod_columns(df)
+        self._check_mod_columns(df)
         return df
 
-    def _mod_columns(self, df):
+    def _check_mod_columns(self, df):
         for new_name in self._get_column_mods:
             assert new_name in df.columns, f"Column '{new_name}' does not exist in the DataFrame."
 

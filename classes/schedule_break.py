@@ -7,12 +7,12 @@ from zzz_enums import GluOrigin, GluExportFormat
 class ScheduleBreak(iSerializable):
     def __init__(
         self,
-        break_info:BreakInfo,
-        status_info:StatusInfo  ,
-        tbId1:str,
-        tbId2:str,
+        break_info: BreakInfo,
+        status_info: StatusInfo,
+        tbId1: str,
+        tbId2: str,
         programme: str,
-        blockType_org: str ,
+        blockType_org: str,
         blockType_mod: str,
         freeTime: int,
         bookedness: str,
@@ -22,7 +22,6 @@ class ScheduleBreak(iSerializable):
         grpTg_98: float,
         grpTg_99: float,
         positionCode: int,
-
     ):
         self.break_info = break_info
         self.status_info = status_info
@@ -43,26 +42,29 @@ class ScheduleBreak(iSerializable):
     def __str__(self):
         return str(self.break_info.blockId)
 
-    def book(self, subcampaign:int):
-
-        if self.status_info.get_is_wanted:
-            origin= self.status_info.origin
-        else:
+    def book(self, subcampaign_id: int):
+        if (
+            self.status_info.get_is_wanted
+        ):  # jeżeli brejk był chciany to albo przez optymalizator albo ręcznie, enyłej zostawiamy origin
+            origin = self.status_info.origin
+        else:  # jeżeli nie był chciany, to znaczy że stacja go dała, więc origin = station
             origin = GluOrigin.Station
 
-        self.status_info = StatusInfo(subcampaign=subcampaign, origin=origin, is_booked=True)
+        self.status_info = StatusInfo(subcampaign_id=subcampaign_id, origin=origin, is_booked=True)
 
-    def serialize(self, export_format:GluExportFormat):
+    def serialize(self, export_format: GluExportFormat):
         if export_format == GluExportFormat.ScheduleBreak_rozkminki:
-            my_dict = self.break_info.serialize(GluExportFormat.Irrelevant) | self.status_info.serialize(GluExportFormat.Irrelevant)
+            my_dict = self.break_info.serialize(GluExportFormat.Irrelevant) | self.status_info.serialize(
+                GluExportFormat.Irrelevant
+            )
         elif export_format == GluExportFormat.ScheduleBreak_minerwa:
             my_dict = self.get_export_row_minerwa()
         else:
             raise ValueError("Wrong export format")
         return my_dict
 
-    def get_export_row_minerwa(self)->dict:
-        my_dict:dict = {}
+    def get_export_row_minerwa(self) -> dict:
+        my_dict: dict = {}
         my_dict["blockId"] = self.break_info.blockId
         my_dict["channel"] = self.break_info.channel
         my_dict["programme"] = self.programme
@@ -86,5 +88,4 @@ class ScheduleBreak(iSerializable):
         my_dict["positionCode"] = self.positionCode
         # my_dict["scheduleInfo"] = self.scheduleInfo
 
-
-        return  my_dict
+        return my_dict

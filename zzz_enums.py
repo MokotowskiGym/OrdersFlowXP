@@ -58,4 +58,5 @@ class GluExceptionType(Enum):
 
 class GluDfProcessorType(Enum):
     HISTORY_ORG = "History"
-    SCHEDULE_POLSAT = "Schedule Polsat"
+    BOOKING_POLSAT = "Schedule Polsat"
+    SCHEDULE = "SCHEDULE"

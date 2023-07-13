@@ -7,14 +7,13 @@ from zzz_enums import *
 
 
 class ChannelBreak(iSerializable):
-    def __init__(self, break_info:BreakInfo, subcampaign:int, tbId: str):
+    def __init__(self, break_info: BreakInfo, subcampaign_org: int, tbId: str):
         self.break_info = break_info
         self.tbId = tbId
-        self.subcampaign = subcampaign
+        self.subcampaing_org = subcampaign_org
         self._match_level = GluMatchLevel.NO_MATCH
-        self._schedule_timeband:Timeband
-        self._schedule_break:ScheduleBreak
-
+        self._schedule_timeband: Timeband
+        self._schedule_break: ScheduleBreak
 
     @property
     def match_level(self) -> GluMatchLevel:
@@ -24,9 +23,8 @@ class ChannelBreak(iSerializable):
     def match_level(self, value: GluMatchLevel) -> None:
         self._match_level = value
 
-
     @property
-    def schedule_timeband(self) -> Timeband|None:
+    def schedule_timeband(self) -> Timeband | None:
         try:
             return self._schedule_timeband
         except:
@@ -37,7 +35,7 @@ class ChannelBreak(iSerializable):
         self._schedule_timeband = value
 
     @property
-    def schedule_break(self) -> ScheduleBreak|None:
+    def schedule_break(self) -> ScheduleBreak | None:
         try:
             return self._schedule_break
         except:
@@ -60,7 +58,7 @@ class ChannelBreak(iSerializable):
 
         return closest_break
 
-    def serialize(self, export_format:GluExportFormat) -> dict:
+    def serialize(self, export_format: GluExportFormat) -> dict:
         if export_format == GluExportFormat.ChannelBreak:
             return {"ratecard": self.break_info.ratecard, "dateTime": self.break_info.date_time}
         else:
@@ -78,19 +76,14 @@ class ChannelBreak(iSerializable):
         return potential_matches
 
 
-
 def get_channel_break(row) -> ChannelBreak:
-
     break_info = BreakInfo(
-        blockId=row["blockId"],
-        channel=row["channel"],
-        date_time=row["dateTime"],
-        ratecard=row["ratecard"]
+        blockId=row["blockId"], channel=row["channel"], date_time=row["dateTime"], ratecard=row["ratecard"]
     )
 
     channel_break = ChannelBreak(
         break_info=break_info,
-        subcampaign=0, # TODO: ogarnąć subcampaign
+        subcampaign_org=row["subcampaign_org"],  # TODO: ogarnąć subcampaign
         tbId=row["tbId"],
     )
     return channel_break

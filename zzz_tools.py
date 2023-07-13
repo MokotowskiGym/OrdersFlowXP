@@ -63,7 +63,7 @@ class Collection(dict):
 
 def get_cannon_columns_set(cannon_columns_set: GluCannonColumnsSet) -> Set[str]:
     set_booking_org = set("blockId dateTime channelOrg ratecard".split())
-    set_booking_processed = set_booking_org | set("channel supplier channelGroup tbId".split())
+    set_booking_processed = set_booking_org | set("channel supplier channelGroup tbId subcampaign_org".split())
     set_scheduleMatching = set("blockId dateTime channel ratecard wantedness tbId1 tbId2 bookedness".split())
     set_scheduleOrg = set(
         "blockId	channel	programme blockType_org	blockType_mod xDate	xTime ratecard freeTime	week timeband wantedness bookedness	eqPriceNet grpTg_01 grpTg_02 grpTg_50 grpTg_98 grpTg_99 positionCode scheduleInfo".split()
@@ -72,9 +72,7 @@ def get_cannon_columns_set(cannon_columns_set: GluCannonColumnsSet) -> Set[str]:
 
     my_set: set[str]
 
-    if cannon_columns_set == GluCannonColumnsSet.BookingOrg:
-        my_set = set_booking_org
-    elif cannon_columns_set == GluCannonColumnsSet.ScheduleOrg:
+    if cannon_columns_set == GluCannonColumnsSet.ScheduleOrg:
         my_set = set_scheduleOrg
     elif cannon_columns_set == GluCannonColumnsSet.BookingProcessed:
         my_set = set_booking_processed
@@ -229,7 +227,7 @@ def export_df(
     file_name = df_caption + now_str + file_type.value
     file_path = os.path.join(export_dir, file_name)
     if file_type == GluFileType.CSV:
-        df.to_csv(file_path, index=export_index, sep=column_sep, decimal=decimal_sep)
+        df.to_csv(file_path, index=export_index, sep=column_sep, decimal=decimal_sep, encoding="utf-8-sig")
     elif file_type == GluFileType.XLSX:
         df.to_excel(file_path, sheet_name=sheet_name, index=export_index)
     else:
@@ -273,7 +271,6 @@ def check_cannon_columns(
     cannon_columns_list: GluCannonColumnsSet = GluCannonColumnsSet.DoNotCheck,
     drop_excess_columns: bool = False,
 ):
-
     if cannon_columns_list != GluCannonColumnsSet.DoNotCheck:
         cannon_columns = get_cannon_columns_set(cannon_columns_list)
 

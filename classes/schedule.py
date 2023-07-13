@@ -1,15 +1,18 @@
-from typing import Dict
+import json
+from typing import Dict, List
 
 import pandas as pd
 
-import zzz_ordersTools as ot
+import zzz_constants as CONST_
 import zzz_tools as t
 from classes.break_info import BreakInfo
+from classes.dfProcessor import get_df_processor
 from classes.exceptions import MyProgramException
 from classes.iData_framable import iDataFrameable
 from classes.merger import get_merger
 from classes.schedule_break import ScheduleBreak
 from classes.status_info import StatusInfo
+from classes.subcampaign import Subcampaign
 from classes.timeband import Timeband
 from classes.wantedness_info import WantednessInfo
 from zzz_enums import *
@@ -73,6 +76,18 @@ class Schedule(iDataFrameable):
             timeband2.add_schedule_break(schedule_break)
         return timebands_dict
 
+    def get_subcampaigns(self)->List[Subcampaign]:
+        shedule_info_json = json.loads(self.schedule_info)
+        subcampaign_json = shedule_info_json["campaingNames"]
+        subcampaigns = []
+        for subcampaigns_json in subcampaign_json:
+            value = subcampaigns_json["value"]
+            copy_name = subcampaigns_json["name"]
+            length = subcampaigns_json["length"]
+            subcampaign = Subcampaign(value, copy_name, length)
+            subcampaigns.append(subcampaign)
+        return subcampaigns
+
     def to_dataframe(self, export_format: GluExportFormat):
         x: ScheduleBreak
         # print (type(self.schedule_breaks.values)
@@ -82,6 +97,11 @@ class Schedule(iDataFrameable):
         df.loc[0, "scheduleInfo"] = self.schedule_info  # Assign the string value to the first row of the new column
 
         return df
+
+    def export(self) -> str:
+        export_df = self.to_dataframe(GluExportFormat.ScheduleBreak_minerwa)
+        export_path = t.export_df(export_df, "schedule - minerwa", file_type=t.GluFileType.CSV)
+        return export_path
 
 
 def get_wantedness_info_from_row(wantedness) -> WantednessInfo:
@@ -119,7 +139,7 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
         )
 
         status_info = StatusInfo(
-            subcampaign=wantedness_info.subcampaign, origin=wantedness_info.origin, is_booked=row["bookedness"]
+            subcampaign_id=wantedness_info.subcampaign, origin=wantedness_info.origin, is_booked=row["bookedness"]
         )
 
         schedule_break = ScheduleBreak(
@@ -145,8 +165,9 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
 
 
 def get_schedule(schedule_type: GluScheduleType, df_channelsMapping: pd.DataFrame) -> Schedule:
-    path_schedule = ot.get_schedule_path(schedule_type)
-    df_scheduleOrg = pd.read_csv(path_schedule, sep=";", encoding="utf-8", decimal=",")
+    path_schedule = CONST_.get_path_schedule(schedule_type)
+    df_scheduleOrg = get_df_processor(GluDfProcessorType.SCHEDULE, path_schedule).get_df
+
     df_scheduleProcessed = getProcessedScheduleDf(df_scheduleOrg, df_channelsMapping)
 
     schedule_breaks = get_schedule_breaks(df_scheduleProcessed)
