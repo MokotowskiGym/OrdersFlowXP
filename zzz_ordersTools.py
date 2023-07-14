@@ -6,8 +6,9 @@ from typing import List, Dict
 
 import pandas as pd
 
-import zzz_constants as CONST_
-import zzz_strings as STR_
+import zzz_const as CONST
+import zzz_enums as ENUM
+import zzz_strings as STR
 from classes.break_info import BreakInfo
 from classes.exceptions import MyProgramException
 from classes.merger import get_merger
@@ -17,7 +18,6 @@ from classes.timeband import Timeband
 from classes.tv.channel import Channel
 from classes.tv.channel_group import ChannelGroup
 from classes.tv.supplier import Supplier
-from zzz_enums import *
 
 
 def get_date_time_tvp(xDate: str, xHour: str, xMinute: str) -> datetime:
@@ -83,7 +83,7 @@ def get_suppliers(json_path: str) -> List[Supplier]:
 
 
 def get_channels_df() -> pd.DataFrame:
-    with open(CONST_.PATH_JSON_CHANNELS, "r") as file:
+    with open(CONST.PATH_JSON_CHANNELS, "r") as file:
         json_channels = json.load(file)
 
     suppliers = []
@@ -113,7 +113,7 @@ def get_channels_df() -> pd.DataFrame:
 
 
 def get_copy_indexes_df() -> pd.DataFrame:
-    json_copyLengths_path = CONST_.PATH_JSON_COPY_INDEXES
+    json_copyLengths_path = CONST.PATH_JSON_COPY_INDEXES
 
     with open(json_copyLengths_path, "r") as f:
         data = json.load(f)
@@ -123,16 +123,16 @@ def get_copy_indexes_df() -> pd.DataFrame:
     return df
 
 
-def get_booking_path(supplier: GluSupplier, booking_quality: GluBookingQuality) -> str:
+def get_booking_path(supplier: ENUM.Supplier, booking_quality: ENUM.BookingQuality) -> str:
     folder = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source"
     case = supplier.value + booking_quality.value
-    if case == GluSupplier.POLSAT.value + GluBookingQuality.OK.value:
+    if case == ENUM.Supplier.POLSAT.value + ENUM.BookingQuality.OK.value:
         file = "2 booking polsat no pato2023-04-22 1052.xlsx"
-    elif case == GluSupplier.POLSAT.value + GluBookingQuality.ABSENT_CHANNELS.value:
+    elif case == ENUM.Supplier.POLSAT.value + ENUM.BookingQuality.ABSENT_CHANNELS.value:
         file = "2 booking polsat no pato2023-04-22 1052 -brakujące stacje.xlsx"
-    elif case == GluSupplier.POLSAT.value + GluBookingQuality.ILLEGAL_CHANNELS.value:
+    elif case == ENUM.Supplier.POLSAT.value + ENUM.BookingQuality.ILLEGAL_CHANNELS.value:
         file = "2 booking polsat no pato2023-04-22 1052 -zjebane stacje.xlsx"
-    elif case == GluSupplier.POLSAT.value + GluBookingQuality.FUCKED_UP_DATES.value:
+    elif case == ENUM.Supplier.POLSAT.value + ENUM.BookingQuality.FUCKED_UP_DATES.value:
         file = "2 booking polsat no pato2023-04-22 1052 - zjebane daty.xlsx"
     else:
         raise MyProgramException(f"Wrong supplier: {supplier} / booking_quality: {booking_quality}")
@@ -150,7 +150,7 @@ def check_time_space_consistency(df_booking: pd.DataFrame, df_schedule: pd.DataF
         df_schedule,
         "channel",
         "channel",
-        exception_type_unjoined=GluExceptionType.MERGER_ABSENT_CHANNELS,
+        exception_type_unjoined=ENUM.ExceptionType.MERGER_ABSENT_CHANNELS,
     ).return_merged_df()
 
     min_date_booking = df_booking["dateTime"].min()
@@ -172,12 +172,12 @@ def check_time_space_consistency(df_booking: pd.DataFrame, df_schedule: pd.DataF
 
 
 def get_empty_timeband() -> Timeband:
-    timeband = Timeband(STR_.IRELEVANT)
+    timeband = Timeband(STR.IRELEVANT)
     return timeband
 
 
 def get_empty_break_info() -> BreakInfo:
-    break_info = BreakInfo(0, CONST_.FAKE_DATE, CONST_.FAKE_INT, STR_.IRELEVANT)
+    break_info = BreakInfo(0, CONST.FAKE_DATE, CONST.FAKE_INT, STR.IRELEVANT)
     return break_info
 
 
@@ -185,13 +185,12 @@ def get_empty_schedule_break(break_info: BreakInfo) -> ScheduleBreak:
     schedule_break = ScheduleBreak(
         break_info,
         get_empty_status_info(),
-        STR_.IRELEVANT,
-        STR_.IRELEVANT,
-        STR_.IRELEVANT,
-        STR_.IRELEVANT,
-        STR_.IRELEVANT,
+        STR.IRELEVANT,
+        STR.IRELEVANT,
+        STR.IRELEVANT,
+        STR.IRELEVANT,
+        STR.IRELEVANT,
         999,
-        STR_.IRELEVANT,
         0,
         0,
         0,
@@ -203,7 +202,7 @@ def get_empty_schedule_break(break_info: BreakInfo) -> ScheduleBreak:
 
 
 def get_empty_status_info() -> StatusInfo:
-    status_info: StatusInfo = StatusInfo(subcampaign_id=-1, origin=GluOrigin.NotWanted, is_booked=False)
+    status_info: StatusInfo = StatusInfo(subcampaign_id=-1, origin=ENUM.Origin.NotWanted, is_booked=False)
     return status_info
 
 
@@ -211,13 +210,13 @@ def get_schedule_break_from_channel_break(break_info: BreakInfo) -> ScheduleBrea
     schedule_break = ScheduleBreak(
         break_info,
         get_empty_status_info(),
-        STR_.IRELEVANT,
-        STR_.IRELEVANT,
-        STR_.ADDED_BY_STATION,
-        STR_.UNKNOWN,
-        STR_.UNKNOWN,
+        STR.IRELEVANT,
+        STR.IRELEVANT,
+        STR.ADDED_BY_STATION,
+        STR.UNKNOWN,
+        STR.UNKNOWN,
         999,
-        STR_.BOOKEDNESS_NOT_BOOKED,
+        STR.BOOKEDNESS_NOT_BOOKED,
         0,
         0,
         0,

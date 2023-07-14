@@ -6,7 +6,7 @@ class StatusInfo(iSerializable):
     def __init__(
             self,
             subcampaign_id: int,
-            origin: GluOrigin,
+            origin: Origin,
             is_booked: bool
     ):
         self.subcampaign_id = subcampaign_id
@@ -18,7 +18,7 @@ class StatusInfo(iSerializable):
         return self.subcampaign_id>=0
 
 
-    def serialize(self, export_format:GluExportFormat)->dict:
+    def serialize(self, export_format:ExportFormat)->dict:
         return {
             'subcampaign': self.subcampaign_id,
             'origin': self.origin.value,
@@ -35,3 +35,15 @@ class StatusInfo(iSerializable):
 
         return my_str
 
+    @property
+    def get_bookedness(self)->str:
+
+        # Booked(Subcampaign(0))
+        # NotBooked
+
+        if self.is_booked:
+            my_str = f'Booked(Subcampaign({self.subcampaign_id}))'
+        else:
+            my_str = 'NotBooked'
+
+        return my_str

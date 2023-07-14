@@ -19,7 +19,7 @@ class MyProgramException(Exception):
 class MergerException(MyProgramException):
     """Raised when the merger is not valid"""
 
-    def __init__(self, exception_type: GluExceptionType,  unjoined_values:List[str], caption: str="Merge Operation"):
+    def __init__(self, exception_type: ExceptionType, unjoined_values:List[str], caption: str= "Merge Operation"):
         self.exception_type = exception_type
         self.unjoined_values = unjoined_values
         self.caption = caption

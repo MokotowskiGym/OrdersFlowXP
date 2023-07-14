@@ -5,16 +5,14 @@ import pandas as pd
 
 import c_matching as matching
 import d_process_schedule as ps
-import zzz_constants as const
+import zzz_const as const
+import zzz_enums as enum
 import zzz_ordersTools as ot
-import zzz_tools as t
 from classes.booking import get_booking
+from classes.booking_report import BookingReport
 from classes.schedule import get_schedule
 from classes.subcampaign import Subcampaign
-from zzz_enums import *
-
-
-# TODO: bookedness ogarnąć, empty schedule break, ctrl+F w edytorze
+from zzz_tools import export_df
 
 
 def get_existing_subcampaign_dict() -> Dict[str, Subcampaign]:
@@ -60,9 +58,9 @@ def get_subcampaigns_dict(subcampaign_orgs_booking: Set[str], subcampaigns_sched
     return valid_dict
 
 def process_booking(
-    supplier: GluSupplier,
-    booking_quality: GluBookingQuality,
-    schedule_type: GluScheduleType,
+    supplier: enum.Supplier,
+    booking_quality: enum.BookingQuality,
+    schedule_type: enum.ScheduleType,
     do_export_debug_files: bool = True,
 ) -> str:
     # print(calculate_circle_data(5, CircleDataType.PERIMETER))
@@ -79,11 +77,12 @@ def process_booking(
     ot.check_time_space_consistency(booking.df, schedule.df)
     matching.match_channel_breaks_step1_id(booking.get_unmatched_channel_breaks(), schedule.schedule_breaks)
     matching.match_channel_breaks_step2_timebands(booking.get_unmatched_channel_breaks(), schedule.get_timebands_dict())
-    ps.process_schedule_after_matching(schedule.schedule_breaks, booking.channel_breaks, subcampaigns_dict)  # modyfikuje schedule brejki
+    booking_report:BookingReport =   ps.process_booking(schedule.schedule_breaks, booking.channel_breaks, subcampaigns_dict)  # modyfikuje schedule brejki
+    print (booking_report)
     result_schedule_path = schedule.export()
     if do_export_debug_files:
-        t.export_df(booking.to_dataframe(GluExportFormat.ChannelBreak), "channel breaks")
-        t.export_df(schedule.to_dataframe(GluExportFormat.ScheduleBreak_rozkminki), "schedule - rozkminki")
+        export_df(booking.to_dataframe(enum.ExportFormat.ChannelBreak), "channel breaks")
+        export_df(schedule.to_dataframe(enum.ExportFormat.ScheduleBreak_rozkminki), "schedule - rozkminki")
 
         # t.export_df(schedule.df, "1a schedule_processed")
         # t.export_df(booking.df, "1b booking_processed")
@@ -95,9 +94,9 @@ def process_booking(
 
 
 def main():
-    supplier: GluSupplier = GluSupplier.POLSAT
-    booking_quality: GluBookingQuality = GluBookingQuality.FUCKED_UP_DATES
-    schedule_type: GluScheduleType = GluScheduleType.OK_4CHANNELS_1WANTED
+    supplier: enum.Supplier = enum.Supplier.POLSAT
+    booking_quality: enum.BookingQuality = enum.BookingQuality.FUCKED_UP_DATES
+    schedule_type: enum.ScheduleType = enum.ScheduleType.OK_4CHANNELS_1WANTED
 
     # schedule_path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1a schedule 2022-10-06 112529 Schedule czysta - wrong channels.txt"
 

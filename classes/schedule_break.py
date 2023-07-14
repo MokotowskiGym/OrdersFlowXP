@@ -1,8 +1,14 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from classes.break_info import BreakInfo
 from classes.iSerializable import iSerializable
 from classes.status_info import StatusInfo
-from zzz_enums import GluOrigin, GluExportFormat
+from zzz_enums import Origin, ExportFormat
 
+if TYPE_CHECKING:
+    from classes.channel_break import ChannelBreak
 
 class ScheduleBreak(iSerializable):
     def __init__(
@@ -15,7 +21,6 @@ class ScheduleBreak(iSerializable):
         blockType_org: str,
         blockType_mod: str,
         freeTime: int,
-        bookedness: str,
         grpTg_01: float,
         grpTg_02: float,
         grpTg_50: float,
@@ -31,7 +36,6 @@ class ScheduleBreak(iSerializable):
         self.blockType_org = blockType_org
         self.blockType_mod = blockType_mod
         self.freeTime = freeTime
-        self.bookedness = bookedness
         self.grpTg_01 = grpTg_01
         self.grpTg_02 = grpTg_02
         self.grpTg_50 = grpTg_50
@@ -48,16 +52,19 @@ class ScheduleBreak(iSerializable):
         ):  # jeżeli brejk był chciany to albo przez optymalizator albo ręcznie, enyłej zostawiamy origin
             origin = self.status_info.origin
         else:  # jeżeli nie był chciany, to znaczy że stacja go dała, więc origin = station
-            origin = GluOrigin.Station
+            origin = Origin.Station
 
         self.status_info = StatusInfo(subcampaign_id=subcampaign_id, origin=origin, is_booked=True)
 
-    def serialize(self, export_format: GluExportFormat):
-        if export_format == GluExportFormat.ScheduleBreak_rozkminki:
-            my_dict = self.break_info.serialize(GluExportFormat.Irrelevant) | self.status_info.serialize(
-                GluExportFormat.Irrelevant
+    def unbook(self):
+        self.status_info = StatusInfo(subcampaign_id=-1, origin=Origin.Station, is_booked=False)
+
+    def serialize(self, export_format: ExportFormat):
+        if export_format == ExportFormat.ScheduleBreak_rozkminki:
+            my_dict = self.break_info.serialize(ExportFormat.Irrelevant) | self.status_info.serialize(
+                ExportFormat.Irrelevant
             )
-        elif export_format == GluExportFormat.ScheduleBreak_minerwa:
+        elif export_format == ExportFormat.ScheduleBreak_minerwa:
             my_dict = self.get_export_row_minerwa()
         else:
             raise ValueError("Wrong export format")
@@ -77,7 +84,7 @@ class ScheduleBreak(iSerializable):
         my_dict["week"] = "irrelevant"
         my_dict["timeband"] = "irrelevant"
         my_dict["wantedness"] = self.status_info.get_wantedness
-        my_dict["bookedness"] = self.bookedness
+        my_dict["bookedness"] = self.status_info.get_bookedness
         my_dict["eqPriceNet"] = 2137
         # print (type(self.grpTg_01))
         my_dict["grpTg_01"] = self.grpTg_01
@@ -89,3 +96,16 @@ class ScheduleBreak(iSerializable):
         # my_dict["scheduleInfo"] = self.scheduleInfo
 
         return my_dict
+
+    @property
+    def channel_break(self) -> ChannelBreak | None:
+        try:
+            return self._channel_break
+        except:
+            return None
+
+    @channel_break.setter
+    def channel_break(self, value: ChannelBreak) -> None:
+        self._channel_break = value
+
+

@@ -1,6 +1,5 @@
 from typing import Dict
 
-import zzz_tools as t
 
 
 class SingletonMeta(type):
@@ -15,13 +14,13 @@ class SingletonMeta(type):
 
 class ResultFolder(metaclass=SingletonMeta):
     result_dir = None
-
     def get_result_dir(self):
+        from zzz_tools import get_now_str, get_dir_safe
         if self.result_dir is None:
-            folder_name = r"result/" + t.get_now_str()
-            root_dir = t.get_dir_safe("result")
-            self.result_dir = t.get_dir_safe(folder_name)
+            folder_name = r"result/" + get_now_str()
+            root_dir = get_dir_safe("result")
+            self.result_dir = get_dir_safe(folder_name)
         return self.result_dir
 
     def get_result_sub_dir(self, sub_folder_name):
-        return t.get_dir_safe(self.get_result_dir() + "/" + sub_folder_name)
+        return get_dir_safe(self.get_result_dir() + "/" + sub_folder_name)

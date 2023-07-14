@@ -3,18 +3,17 @@ from typing import List, Any, Optional
 
 import pandas as pd
 
+import zzz_enums as ENUM
 from classes.column_def import columnDef
 from classes.merger import get_merger
-from zzz_enums import *
-from zzz_tools import Collection
-from zzz_tools import GluFileType, get_float
+from zzz_tools import Collection, get_float
 
 
 @dataclass
 class DfProcessorConfig:
-    df_processor_type: GluDfProcessorType
+    df_processor_type: ENUM.DfProcessorType
     sheet_name: Any
-    file_type: GluFileType
+    file_type: ENUM.FileType
     date_format: str = "%Y-%m-%d"  # Specify the date format if needed
     column_separator: str = ";"  # Specify the column separator
     decimal_separator: str = ","  # Specify the decimal separator
@@ -29,20 +28,20 @@ class DfProcessorConfig:
         self.column_defs: Collection = Collection()
 
         match self.df_processor_type:
-            case GluDfProcessorType.HISTORY_ORG:
+            case ENUM.DfProcessorType.HISTORY_ORG:
                 self.add_column("Channel", "channelOrg")
                 self.add_column("Date", "xDate")  # "Datetime64[ns]")
                 self.add_column("Time", "xTime")  # , "Datetime64[ns]")
                 self.add_column("Prog Campaign", "programme")
                 self.add_column("Cost", "ratecard")
-            case GluDfProcessorType.BOOKING_POLSAT:
+            case ENUM.DfProcessorType.BOOKING_POLSAT:
                 self.add_column("", "CopyLength")  # "Datetime64[ns]")
                 self.add_column("", "dateTime")
                 self.add_column("", "channelOrg")
                 self.add_column("", "ratecard")
                 self.add_column("", "blockId")
                 self.add_column("", "subcampaign_org")
-            case GluDfProcessorType.SCHEDULE:
+            case ENUM.DfProcessorType.SCHEDULE:
                 self.add_column("blockId", "blockId")
                 self.add_column("channel", "channel")
                 self.add_column("programme", "programme")
@@ -69,17 +68,17 @@ class DfProcessorConfig:
                 raise ValueError(f"Wrong df_processor_type: {self.df_processor_type}")
 
 
-def get_df_processor_config(df_processor_type: GluDfProcessorType):
+def get_df_processor_config(df_processor_type: ENUM.DfProcessorType):
     match df_processor_type:
-        case GluDfProcessorType.HISTORY_ORG:
-            config = DfProcessorConfig(df_processor_type, 0, GluFileType.XLSX)
-        case GluDfProcessorType.BOOKING_POLSAT:
-            config = DfProcessorConfig(df_processor_type, 0, GluFileType.XLSX, import_only_defined_columns=False)
-        case GluDfProcessorType.SCHEDULE:
+        case ENUM.DfProcessorType.HISTORY_ORG:
+            config = DfProcessorConfig(df_processor_type, 0, ENUM.FileType.XLSX)
+        case ENUM.DfProcessorType.BOOKING_POLSAT:
+            config = DfProcessorConfig(df_processor_type, 0, ENUM.FileType.XLSX, import_only_defined_columns=False)
+        case ENUM.DfProcessorType.SCHEDULE:
             config = DfProcessorConfig(
                     df_processor_type,
                     0,
-                    GluFileType.CSV,
+                    ENUM.FileType.CSV,
                     import_only_defined_columns=False ,
                     date_columns_to_parse=["xDate"],
                     date_format="%Y-%m-%d %H:%M:%S",
@@ -168,9 +167,9 @@ class DfProcessor:
 
     def _get_df_org(self) -> pd.DataFrame:
         match self.cfg.file_type:
-            case GluFileType.XLSX:
+            case ENUM.FileType.XLSX:
                 df = self._get_df_org_xlsx()
-            case GluFileType.CSV:
+            case ENUM.FileType.CSV:
                 df = self._get_df_org_csv()
 
             case _:
@@ -187,7 +186,7 @@ class DfProcessor:
     def _transform_before_check_header(self, df: pd.DataFrame) -> pd.DataFrame:
 
         match self.cfg.df_processor_type:
-            case GluDfProcessorType.BOOKING_POLSAT:
+            case ENUM.DfProcessorType.BOOKING_POLSAT:
                 from zzz_ordersTools import get_date_time_polsat,get_copy_indexes_df
 
                 df_copyIndexes = get_copy_indexes_df()
@@ -201,7 +200,7 @@ class DfProcessor:
                 df["ratecard"] = df["ratecard_indexed"] / df["CopyIndex"]
                 df["subcampaign_org"] = df["Długość"] + "-" + self.get_file_name
                 df.rename(columns={"ID Bloku": "blockId"}, inplace=True)
-            case GluDfProcessorType.SCHEDULE:
+            case ENUM.DfProcessorType.SCHEDULE:
                 pass
             case _:
                 raise NotImplementedError
@@ -220,7 +219,7 @@ class DfProcessor:
             assert new_name in df.columns, f"Column '{new_name}' does not exist in the DataFrame."
 
 
-def get_df_processor(df_processor_type: GluDfProcessorType, file_path: str) -> DfProcessor:
+def get_df_processor(df_processor_type: ENUM.DfProcessorType, file_path: str) -> DfProcessor:
     cfg = get_df_processor_config(df_processor_type)
     df_processor = DfProcessor(cfg, file_path)
     return df_processor

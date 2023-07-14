@@ -14,7 +14,7 @@ class BreakInfo(iSerializable):
         self.channel = channel
 
 
-    def serialize(self, export_format:GluExportFormat):
+    def serialize(self, export_format:ExportFormat):
         return {
             "blockId": self.blockId,
             "date_time": self.date_time,

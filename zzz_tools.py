@@ -1,13 +1,14 @@
 import datetime as dt
 import os
 import tkinter as tk
+from enum import Enum
 from typing import List, Union, Any, Set
 
 import pandas as pd
 
+import zzz_enums as ENUM
 from classes.exceptions import MyProgramException
 from classes.result_folder import ResultFolder
-from zzz_projectTools import *
 
 
 class GluDfDebugMode(Enum):
@@ -61,7 +62,7 @@ class Collection(dict):
         return next(iter(self.values()))
 
 
-def get_cannon_columns_set(cannon_columns_set: GluCannonColumnsSet) -> Set[str]:
+def get_cannon_columns_set(cannon_columns_set: ENUM.CannonColumnsSet) -> Set[str]:
     set_booking_org = set("blockId dateTime channelOrg ratecard".split())
     set_booking_processed = set_booking_org | set("channel supplier channelGroup tbId subcampaign_org".split())
     set_scheduleMatching = set("blockId dateTime channel ratecard wantedness tbId1 tbId2 bookedness".split())
@@ -72,17 +73,17 @@ def get_cannon_columns_set(cannon_columns_set: GluCannonColumnsSet) -> Set[str]:
 
     my_set: set[str]
 
-    if cannon_columns_set == GluCannonColumnsSet.ScheduleOrg:
+    if cannon_columns_set == ENUM.CannonColumnsSet.ScheduleOrg:
         my_set = set_scheduleOrg
-    elif cannon_columns_set == GluCannonColumnsSet.BookingProcessed:
+    elif cannon_columns_set == ENUM.CannonColumnsSet.BookingProcessed:
         my_set = set_booking_processed
-    elif cannon_columns_set == GluCannonColumnsSet.ScheduleMatching:
+    elif cannon_columns_set == ENUM.CannonColumnsSet.ScheduleMatching:
         my_set = set_scheduleMatching
-    elif cannon_columns_set == GluCannonColumnsSet.ScheduleProcessedFull:
+    elif cannon_columns_set == ENUM.CannonColumnsSet.ScheduleProcessedFull:
         my_set = set_scheduleFull
-    elif cannon_columns_set == GluCannonColumnsSet.Matching:
+    elif cannon_columns_set == ENUM.CannonColumnsSet.Matching:
         my_set = set_booking_processed | set_scheduleMatching
-    elif cannon_columns_set == GluCannonColumnsSet.DoNotCheck:
+    elif cannon_columns_set == ENUM.CannonColumnsSet.DoNotCheck:
         my_set = set()
     else:
         raise ValueError(f"Wrong cannon columns set: {cannon_columns_set}")
@@ -90,9 +91,7 @@ def get_cannon_columns_set(cannon_columns_set: GluCannonColumnsSet) -> Set[str]:
     return my_set
 
 
-class GluFileType(Enum):
-    XLSX = ".xlsx"
-    CSV = ".csv"
+
 
 
 def get_substring_between_parentheses(input_str):
@@ -204,7 +203,7 @@ def process_df_debug(df_debug_mode: GluDfDebugMode, file_path: str, df_caption, 
 def export_df(
     df: pd.DataFrame,
     df_caption: str,
-    file_type: GluFileType = GluFileType.XLSX,
+    file_type: ENUM.FileType = ENUM.FileType.XLSX,
     add_now_str: bool = True,
     sheet_name: str = "Sheet1",
     df_debug_mode: GluDfDebugMode = GluDfDebugMode.Nothing,
@@ -226,9 +225,9 @@ def export_df(
 
     file_name = df_caption + now_str + file_type.value
     file_path = os.path.join(export_dir, file_name)
-    if file_type == GluFileType.CSV:
+    if file_type == ENUM.FileType.CSV:
         df.to_csv(file_path, index=export_index, sep=column_sep, decimal=decimal_sep, encoding="utf-8-sig")
-    elif file_type == GluFileType.XLSX:
+    elif file_type == ENUM.FileType.XLSX:
         df.to_excel(file_path, sheet_name=sheet_name, index=export_index)
     else:
         raise ValueError(f"File type {file_type} not supported")
@@ -268,10 +267,10 @@ def get_float(input_str: str) -> float:
 
 def check_cannon_columns(
     df: pd.DataFrame,
-    cannon_columns_list: GluCannonColumnsSet = GluCannonColumnsSet.DoNotCheck,
+    cannon_columns_list: ENUM.CannonColumnsSet = ENUM.CannonColumnsSet.DoNotCheck,
     drop_excess_columns: bool = False,
 ):
-    if cannon_columns_list != GluCannonColumnsSet.DoNotCheck:
+    if cannon_columns_list != ENUM.CannonColumnsSet.DoNotCheck:
         cannon_columns = get_cannon_columns_set(cannon_columns_list)
 
         missing_columns = set(cannon_columns) - set(df.columns)

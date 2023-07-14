@@ -3,8 +3,8 @@ from typing import Dict, List
 
 import pandas as pd
 
-import zzz_constants as CONST_
-import zzz_tools as t
+import zzz_const as CONST
+import zzz_enums as ENUM
 from classes.break_info import BreakInfo
 from classes.dfProcessor import get_df_processor
 from classes.exceptions import MyProgramException
@@ -15,8 +15,7 @@ from classes.status_info import StatusInfo
 from classes.subcampaign import Subcampaign
 from classes.timeband import Timeband
 from classes.wantedness_info import WantednessInfo
-from zzz_enums import *
-from zzz_projectTools import GluCannonColumnsSet
+from zzz_tools import check_cannon_columns, Collection, getTimebandId, get_substring_between_parentheses, export_df
 
 
 def getProcessedScheduleDf(df_scheduleOrg: pd.DataFrame, df_channelsMapping: pd.DataFrame) -> pd.DataFrame:
@@ -27,7 +26,7 @@ def getProcessedScheduleDf(df_scheduleOrg: pd.DataFrame, df_channelsMapping: pd.
         df_channelsMapping,
         "channel_org",
         right_on="channelPossibleName",
-        exception_type_unjoined=GluExceptionType.MERGER_ILLEGAL_CHANNELS_IN_SCHEDULE,
+        exception_type_unjoined=ENUM.ExceptionType.MERGER_ILLEGAL_CHANNELS_IN_SCHEDULE,
     ).return_merged_df()
 
     df_scheduleProcessed["dateTime"] = pd.to_datetime(
@@ -35,10 +34,10 @@ def getProcessedScheduleDf(df_scheduleOrg: pd.DataFrame, df_channelsMapping: pd.
     )
 
     df_scheduleProcessed["tbId1"] = df_scheduleProcessed.apply(
-        lambda row: t.getTimebandId(row["channel"], row["dateTime"], 30, 0, 30), axis=1
+        lambda row: getTimebandId(row["channel"], row["dateTime"], 30, 0, 30), axis=1
     )
     df_scheduleProcessed["tbId2"] = df_scheduleProcessed.apply(
-        lambda row: t.getTimebandId(row["channel"], row["dateTime"], 30, 0, 0), axis=1
+        lambda row: getTimebandId(row["channel"], row["dateTime"], 30, 0, 0), axis=1
     )
     # t.msgBox("Templariusz", f'{len(df)}')
 
@@ -46,15 +45,15 @@ def getProcessedScheduleDf(df_scheduleOrg: pd.DataFrame, df_channelsMapping: pd.
     # id_vars = df_scheduleProcessed.columns.difference(value_vars).tolist()
     # df2 = pd.melt(df_scheduleProcessed, id_vars=id_vars, value_vars=value_vars, var_name="tbType", value_name="tb")
     # df2["tbId"] = df2["tb"].dt.strftime("%Y-%m-%d %H%M") + "|" + df2["channel"]
-    t.check_cannon_columns(df_scheduleProcessed, GluCannonColumnsSet.ScheduleProcessedFull, drop_excess_columns=True)
+    check_cannon_columns(df_scheduleProcessed, ENUM.CannonColumnsSet.ScheduleProcessedFull, drop_excess_columns=True)
     return df_scheduleProcessed
 
 
 class Schedule(iDataFrameable):
-    def __init__(self, source_path: str, df: pd.DataFrame, schedule_breaks: t.Collection, schedule_info: str):
+    def __init__(self, source_path: str, df: pd.DataFrame, schedule_breaks: Collection, schedule_info: str):
         self.source_path: str = source_path
         self.df: pd.DataFrame = df
-        self.schedule_breaks: t.Collection = schedule_breaks
+        self.schedule_breaks: Collection = schedule_breaks
         self.schedule_info = schedule_info
 
     def get_timebands_dict(self) -> Dict[str, Timeband]:
@@ -88,7 +87,7 @@ class Schedule(iDataFrameable):
             subcampaigns.append(subcampaign)
         return subcampaigns
 
-    def to_dataframe(self, export_format: GluExportFormat):
+    def to_dataframe(self, export_format: ENUM.ExportFormat):
         x: ScheduleBreak
         # print (type(self.schedule_breaks.values)
 
@@ -99,35 +98,43 @@ class Schedule(iDataFrameable):
         return df
 
     def export(self) -> str:
-        export_df = self.to_dataframe(GluExportFormat.ScheduleBreak_minerwa)
-        export_path = t.export_df(export_df, "schedule - minerwa", file_type=t.GluFileType.CSV)
+        df = self.to_dataframe(ENUM.ExportFormat.ScheduleBreak_minerwa)
+        export_path = export_df(df, "schedule - minerwa", file_type=ENUM.FileType.CSV)
         return export_path
 
 
 def get_wantedness_info_from_row(wantedness) -> WantednessInfo:
     is_wanted: bool
     subcampaign: int
-    origin: GluOrigin
+    origin: ENUM.Origin
 
     if wantedness == "NotWanted":
         is_wanted = False
         subcampaign = -1
-        origin = GluOrigin.NotWanted
+        origin = ENUM.Origin.NotWanted
     elif wantedness.startswith("Wanted"):
         is_wanted = True
-        sub_string = t.get_substring_between_parentheses(wantedness)
-        subcampaign = int(t.get_substring_between_parentheses(sub_string))
+        sub_string = get_substring_between_parentheses(wantedness)
+        subcampaign = int(get_substring_between_parentheses(sub_string))
         origin_str = sub_string.split(",")[0].strip()
-        origin = GluOrigin.get_from_str(origin_str)
+        origin = ENUM.Origin.get_from_str(origin_str)
     else:
         raise MyProgramException(f"Wrong wantedness: {wantedness}")
 
     wantedness_info: WantednessInfo = WantednessInfo(is_wanted=is_wanted, subcampaign=subcampaign, origin=origin)
     return wantedness_info
 
-
-def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
-    breaks = t.Collection()
+def get_is_booked(boookedness:str)->bool:
+    is_booked:bool
+    if boookedness == "Booked":
+        is_booked =  True
+    elif boookedness == "NotBooked":
+        is_booked =  False
+    else:
+        raise MyProgramException(f"Wrong bookedness: {boookedness}")
+        return is_booked
+def get_schedule_breaks(df: pd.DataFrame) -> Collection:
+    breaks = Collection()
     for index, row in df.iterrows():
         wantedness_info = get_wantedness_info_from_row(row["wantedness"])
         block_id = row["blockId"]
@@ -138,8 +145,10 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
             channel=row["channel"],
         )
 
+        is_booked = get_is_booked(row["bookedness"])
+
         status_info = StatusInfo(
-            subcampaign_id=wantedness_info.subcampaign, origin=wantedness_info.origin, is_booked=row["bookedness"]
+            subcampaign_id=wantedness_info.subcampaign, origin=wantedness_info.origin, is_booked=is_booked
         )
 
         schedule_break = ScheduleBreak(
@@ -151,7 +160,6 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
             blockType_org=row["blockType_org"],
             blockType_mod=row["blockType_mod"],
             freeTime=row["freeTime"],
-            bookedness=row["bookedness"],
             grpTg_01=row["grpTg_01"],
             grpTg_02=row["grpTg_02"],
             grpTg_50=row["grpTg_50"],
@@ -164,9 +172,9 @@ def get_schedule_breaks(df: pd.DataFrame) -> t.Collection:
     return breaks
 
 
-def get_schedule(schedule_type: GluScheduleType, df_channelsMapping: pd.DataFrame) -> Schedule:
-    path_schedule = CONST_.get_path_schedule(schedule_type)
-    df_scheduleOrg = get_df_processor(GluDfProcessorType.SCHEDULE, path_schedule).get_df
+def get_schedule(schedule_type: ENUM.ScheduleType, df_channelsMapping: pd.DataFrame) -> Schedule:
+    path_schedule = CONST.get_path_schedule(schedule_type)
+    df_scheduleOrg = get_df_processor(ENUM.DfProcessorType.SCHEDULE, path_schedule).get_df
 
     df_scheduleProcessed = getProcessedScheduleDf(df_scheduleOrg, df_channelsMapping)
 

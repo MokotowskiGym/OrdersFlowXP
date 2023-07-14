@@ -1,9 +1,9 @@
 import pandas as pd
 
+import zzz_enums as ENUM
 from classes.exceptions import *
 from classes.result_folder import ResultFolder
-from zzz_projectTools import GluCannonColumnsSet
-from zzz_tools import export_df, GluFileType, check_cannon_columns
+from zzz_tools import export_df, check_cannon_columns
 
 
 def get_merger(
@@ -13,9 +13,9 @@ def get_merger(
     left_on: str,
     right_on: str = "",
     case_sensitive: bool = False,
-    cannon_columns_list: GluCannonColumnsSet = GluCannonColumnsSet.DoNotCheck,
+    cannon_columns_list: ENUM.CannonColumnsSet = ENUM.CannonColumnsSet.DoNotCheck,
     right_prefix: str = "",
-    exception_type_unjoined: GluExceptionType = GluExceptionType.MERGER_GENERIC,
+    exception_type_unjoined: ExceptionType = ExceptionType.MERGER_GENERIC,
 ):
     if right_prefix == "":
         df2_safe = df2
@@ -66,8 +66,8 @@ class Merger:
         base_err_msg: str,
         case_sensitive: bool,
         delete_temp: bool,
-        cannon_columns_list: GluCannonColumnsSet,
-        exception_type_unjoined: GluExceptionType,
+        cannon_columns_list: ENUM.CannonColumnsSet,
+        exception_type_unjoined: ExceptionType,
     ):
         self.caption = caption
         self.df1 = df1

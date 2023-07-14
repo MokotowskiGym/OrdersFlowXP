@@ -1,9 +1,9 @@
-import zzz_tools as t
 from classes.break_info import BreakInfo
 from classes.iSerializable import iSerializable
 from classes.schedule_break import ScheduleBreak
 from classes.timeband import Timeband
 from zzz_enums import *
+from zzz_tools import Collection
 
 
 class ChannelBreak(iSerializable):
@@ -11,16 +11,16 @@ class ChannelBreak(iSerializable):
         self.break_info = break_info
         self.tbId = tbId
         self.subcampaing_org = subcampaign_org
-        self._match_level = GluMatchLevel.NO_MATCH
+        self._match_level = MatchLevel.NO_MATCH
         self._schedule_timeband: Timeband
-        self._schedule_break: ScheduleBreak
+        self._schedule_break: ScheduleBreak|None = None
 
     @property
-    def match_level(self) -> GluMatchLevel:
+    def match_level(self) -> MatchLevel:
         return self._match_level
 
     @match_level.setter
-    def match_level(self, value: GluMatchLevel) -> None:
+    def match_level(self, value: MatchLevel) -> None:
         self._match_level = value
 
     @property
@@ -43,9 +43,15 @@ class ChannelBreak(iSerializable):
 
     @schedule_break.setter
     def schedule_break(self, value: ScheduleBreak) -> None:
-        self._schedule_break = value
+        if self._schedule_break is None:
+            self._schedule_break = value
+            self._schedule_break.channel_break = self
+        else:
+            raise ValueError("Zjebałeś, setujesz najpierw schedule brejka")
 
-    def get_closest_break(self, schedule_breaks: t.Collection) -> ScheduleBreak:
+
+
+    def get_closest_break(self, schedule_breaks: Collection) -> ScheduleBreak:
         schedule_break: ScheduleBreak
         closest_break: ScheduleBreak = schedule_breaks.get_first_value()
         smallest_diff = abs(self.break_info.date_time - closest_break.break_info.date_time)
@@ -58,14 +64,14 @@ class ChannelBreak(iSerializable):
 
         return closest_break
 
-    def serialize(self, export_format: GluExportFormat) -> dict:
-        if export_format == GluExportFormat.ChannelBreak:
+    def serialize(self, export_format: ExportFormat) -> dict:
+        if export_format == ExportFormat.ChannelBreak:
             return {"ratecard": self.break_info.ratecard, "dateTime": self.break_info.date_time}
         else:
             raise ValueError(f"Invalid export format: {export_format}")
 
-    def get_potential_matches_ratecard(self) -> t.Collection:
-        potential_matches = t.Collection()
+    def get_potential_matches_ratecard(self) -> Collection:
+        potential_matches = Collection()
         schedule_break: ScheduleBreak
         if self.schedule_timeband is None:
             pass
