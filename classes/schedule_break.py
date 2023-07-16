@@ -44,7 +44,7 @@ class ScheduleBreak(iSerializable):
         self.positionCode = positionCode
 
     def __str__(self):
-        return str(self.break_info.blockId)
+        return str(self.break_info.block_id)
 
     def book(self, subcampaign_id: int):
         if (
@@ -72,7 +72,7 @@ class ScheduleBreak(iSerializable):
 
     def get_export_row_minerwa(self) -> dict:
         my_dict: dict = {}
-        my_dict["blockId"] = self.break_info.blockId
+        my_dict["blockId"] = self.break_info.block_id
         my_dict["channel"] = self.break_info.channel
         my_dict["programme"] = self.programme
         my_dict["blockType_org"] = self.blockType_org

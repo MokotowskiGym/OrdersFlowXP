@@ -2,7 +2,7 @@ import datetime as dt
 import os
 import tkinter as tk
 from enum import Enum
-from typing import List, Union, Any, Set
+from typing import List, Union, Any, Set, Type
 
 import pandas as pd
 
@@ -282,3 +282,12 @@ def check_cannon_columns(
         if drop_excess_columns:
             columns_to_drop: List[Any] = list(set(df.columns) - set(cannon_columns))
             df.drop(columns_to_drop, axis=1, inplace=True)
+
+
+def is_enum_value(my_string:str , my_enum:Type[Enum])->bool:
+    ok = False
+    for member in my_enum:
+        if member.value == my_string:
+            ok =  True
+            break
+    return ok

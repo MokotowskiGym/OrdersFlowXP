@@ -8,6 +8,7 @@ from classes.dfProcessor import get_df_processor
 from classes.exceptions import MyProgramException
 from classes.iData_framable import iDataFrameable
 from classes.merger import get_merger
+from zzz_ordersTools import SgltChannelMapping
 from zzz_tools import Collection
 from zzz_tools import getTimebandId, check_cannon_columns
 
@@ -27,7 +28,7 @@ class Booking(iDataFrameable):
         breaks = Collection()
         for channel_break in self.channel_breaks:
             if channel_break.match_level == ENUM.MatchLevel.NO_MATCH:
-                breaks.add(channel_break, channel_break.break_info.blockId)
+                breaks.add(channel_break, channel_break.break_info.block_id)
         return breaks
 
     def get_subcampaings_orgs_set(self) -> Set[str]:
@@ -39,7 +40,6 @@ class Booking(iDataFrameable):
 
 def get_booking(
     supplier: ENUM.Supplier,
-    df_channelsMapping: pd.DataFrame,
     booking_quality: ENUM.BookingQuality,
 ) -> Booking:
     from zzz_ordersTools import get_booking_path
@@ -64,7 +64,7 @@ def get_booking(
     df_booking = get_merger(
         "Merge channels",
         df_booking_org,
-        df_channelsMapping,
+        SgltChannelMapping.get_df,
         "channelOrg",
         right_on="channelPossibleName",
         exception_type_unjoined=ENUM.ExceptionType.MERGER_ILLEGAL_CHANNELS_IN_BOOKING,

@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import List, Dict
 
 import pandas as pd
+from openpyxl.compat.singleton import Singleton
 
 import zzz_const as CONST
 import zzz_enums as ENUM
@@ -18,6 +19,7 @@ from classes.timeband import Timeband
 from classes.tv.channel import Channel
 from classes.tv.channel_group import ChannelGroup
 from classes.tv.supplier import Supplier
+from zzz_tools import is_enum_value
 
 
 def get_date_time_tvp(xDate: str, xHour: str, xMinute: str) -> datetime:
@@ -82,7 +84,7 @@ def get_suppliers(json_path: str) -> List[Supplier]:
     return suppliers
 
 
-def get_channels_df() -> pd.DataFrame:
+def get_channels_mapping_df() -> pd.DataFrame:
     with open(CONST.PATH_JSON_CHANNELS, "r") as file:
         json_channels = json.load(file)
 
@@ -92,6 +94,8 @@ def get_channels_df() -> pd.DataFrame:
     possible_names = []
 
     for supplier in json_channels["supplier"]:
+        if not is_enum_value(supplier["name"], ENUM.Supplier):
+            raise MyProgramException(f"Wrong supplier: {supplier}")
         for channel_group in supplier["channelGroup"]:
             for channel in channel_group["channel"]:
                 for name in channel["channelPossibleName"]:
@@ -111,6 +115,23 @@ def get_channels_df() -> pd.DataFrame:
     )
     return df
 
+
+class SgltChannelMapping(metaclass=Singleton):
+    df: pd.DataFrame
+
+    @classmethod
+    @property
+    def get_df(cls) -> pd.DataFrame:
+        if not hasattr(cls, "df") or (hasattr(cls, "df") and cls.df is None):
+            cls.df = get_channels_mapping_df()
+        return cls.df
+
+    @classmethod
+    @property
+    def get_channel_supplier_dict(cls) -> Dict[str, str]:
+        if not hasattr(cls, "channel_supplier_dict") or (hasattr(cls, "channel_supplier_dict") and cls.channel_supplier_dict is None):
+            cls.channel_supplier_dict = cls.get_df.set_index("channel")["supplier"].to_dict()
+        return cls.channel_supplier_dict
 
 def get_copy_indexes_df() -> pd.DataFrame:
     json_copyLengths_path = CONST.PATH_JSON_COPY_INDEXES

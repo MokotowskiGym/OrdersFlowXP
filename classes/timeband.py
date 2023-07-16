@@ -9,7 +9,7 @@ class Timeband():
         self._is_empty:bool = is_empty
 
     def add_schedule_break(self, schedule_break: ScheduleBreak):
-        self.schedule_breaks.add(schedule_break, schedule_break.break_info.blockId)
+        self.schedule_breaks.add(schedule_break, schedule_break.break_info.block_id)
 
     def __str__(self):
         return self.tbId

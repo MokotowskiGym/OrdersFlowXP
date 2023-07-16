@@ -78,7 +78,7 @@ class ChannelBreak(iSerializable):
         else:
             for schedule_break in self.schedule_timeband.schedule_breaks:
                 if schedule_break.break_info.ratecard == self.break_info.ratecard:
-                    potential_matches.add(schedule_break, schedule_break.break_info.blockId)
+                    potential_matches.add(schedule_break, schedule_break.break_info.block_id)
         return potential_matches
 
 

@@ -6,34 +6,22 @@
   <component name="BlackConnectSettings" port="45490" lineLength="120" triggerOnEachSave="true" triggerOnReformat="true" />
   <component name="ChangeListManager">
     <list default="true" id="364160d3-0f72-4b22-ba95-24e88e935ebd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/b_generate_orders.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classes/booking_report.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/source/OrderTemplates/OrderTemplatePolsat.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chuj.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/a_matching.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a_matching.py" beforeDir="false" afterPath="$PROJECT_DIR$/a_matching.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b_generate_orders.py" beforeDir="false" afterPath="$PROJECT_DIR$/b_generate_orders.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/c_matching.py" beforeDir="false" afterPath="$PROJECT_DIR$/c_matching.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/booking.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/booking.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/break_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/break_info.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/channel_break.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/channel_break.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/dfProcessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/dfProcessor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/exceptions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/iData_framable.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/iData_framable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/iSerializable.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/iSerializable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/merger.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/merger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/result_folder.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/result_folder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/schedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/schedule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/schedule_break.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/schedule_break.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/status_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/status_info.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/timeband.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/timeband.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/d_process_schedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/d_process_schedule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/rozkminki/słownikowanie.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/project/rozkminki/słownikowanie.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/source/1b schedule 2022-10-06 112529 Schedule wanted.txt" beforeDir="false" afterPath="$PROJECT_DIR$/project/source/1b schedule 2022-10-06 112529 Schedule wanted.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/source/OrderTemplates/OrderTemplatePolsat.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/project/source/OrderTemplates/OrderTemplatePolsat.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/source/schedule rozkminki.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/project/source/schedule rozkminki.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_process_booking.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_process_booking.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zzz_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_const.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zzz_enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_enums.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_channels_mapping.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_channels_mapping.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zzz_ordersTools.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_ordersTools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zzz_projectTools.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/zzz_sandbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_sandbox.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zzz_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/zzz_tools.py" afterDir="false" />
     </list>
@@ -99,7 +87,7 @@
       <recent name="C:\Users\macie\PycharmProjects\MnrwOrdersFlow" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.a_matching (1)">
+  <component name="RunManager" selected="Python.b_generate_orders">
     <configuration name="a_main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Mnrw OrdersFlow" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -210,19 +198,26 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for test_channels_mapping.TestChannelsMapping" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="zzz_sandbox" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Mnrw OrdersFlow" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_channels_mapping.TestChannelsMapping&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/zzz_sandbox.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration name="Python tests for test_process_booking.TestProcessBooking" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
@@ -242,11 +237,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.a_matching (1)" />
         <item itemvalue="Python.b_generate_orders" />
+        <item itemvalue="Python.a_matching (1)" />
+        <item itemvalue="Python.zzz_sandbox" />
         <item itemvalue="Python.a_matching" />
         <item itemvalue="Python tests.Python tests for test_process_booking.TestProcessBooking" />
-        <item itemvalue="Python tests.Python tests for test_channels_mapping.TestChannelsMapping" />
       </list>
     </recent_temporary>
   </component>
@@ -302,7 +297,7 @@
       <workItem from="1688746527861" duration="34000" />
       <workItem from="1689153524065" duration="76000" />
       <workItem from="1689154456113" duration="11089000" />
-      <workItem from="1689240465747" duration="25071000" />
+      <workItem from="1689240465747" duration="35782000" />
     </task>
     <task id="LOCAL-00001" summary="fghdfh">
       <created>1686065004210</created>
@@ -411,7 +406,15 @@
       <option name="project" value="LOCAL" />
       <updated>1689254013614</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="wywalone none">
+      <option name="closed" value="true" />
+      <created>1689339827164</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1689339827164</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -447,7 +450,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/zzz_tools.py</url>
-          <line>47</line>
+          <line>49</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -477,11 +480,11 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$.coverage" NAME=" Coverage Results" MODIFIED="1689240779746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$zzz_sandbox.coverage" NAME="zzz_sandbox Coverage Results" MODIFIED="1683891782269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$zzz_sandbox.coverage" NAME="zzz_sandbox Coverage Results" MODIFIED="1689420128808" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mnrw_OrdersFlow$main.coverage" NAME="main Coverage Results" MODIFIED="1680877121827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$b_generate_orders.coverage" NAME="b_generate_orders Coverage Results" MODIFIED="1689337236960" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$b_generate_orders.coverage" NAME="b_generate_orders Coverage Results" MODIFIED="1689426044952" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$a_main.coverage" NAME="a_main Coverage Results" MODIFIED="1687356519516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$a_matching__1_.coverage" NAME="a_matching (1) Coverage Results" MODIFIED="1689339704559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MnrwOrdersFlow$a_matching__1_.coverage" NAME="a_matching (1) Coverage Results" MODIFIED="1689421832664" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$main.coverage" NAME="a_main Coverage Results" MODIFIED="1680949697472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MnrwOrdersFlow$a_main__1_.coverage" NAME="a_main (1) Coverage Results" MODIFIED="1689335372629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

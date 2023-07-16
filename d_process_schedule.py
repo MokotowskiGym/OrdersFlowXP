@@ -13,7 +13,7 @@ def process_booking(schedule_breaks, channel_breaks, subcampaigns_dict:Dict[Subc
     schedule_break: ScheduleBreak
     booking_report = BookingReport([], [], [], [], [])
     for schedule_break in schedule_breaks:
-        if schedule_break.break_info.blockId == _CONST.PODEJRZANY_BLOK_ID:
+        if schedule_break.break_info.block_id == _CONST.PODEJRZANY_BLOK_ID:
             print ("chuj")
         if schedule_break.status_info.get_is_wanted:
             if schedule_break.channel_break == None:                # chcieliśy, nie dostaliśmy
@@ -36,7 +36,7 @@ def process_booking(schedule_breaks, channel_breaks, subcampaigns_dict:Dict[Subc
             # jeżeli w schedulebrejkach nie ma brejka który mugby się zmaczować to musimy dodać do schedula schedulebrejka wytworzonego na podstaiwe channelbrejka
             schedule_break = get_empty_schedule_break(channel_break.break_info)
             channel_break.schedule_break = schedule_break
-            schedule_breaks.add(schedule_break, schedule_break.break_info.blockId)
+            schedule_breaks.add(schedule_break, schedule_break.break_info.block_id)
             subcampaign = subcampaigns_dict[channel_break.subcampaing_org]
             schedule_break.book(subcampaign_id=subcampaign.id)
             booking_report.unmatched_booked.append(schedule_break)

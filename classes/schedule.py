@@ -15,6 +15,7 @@ from classes.status_info import StatusInfo
 from classes.subcampaign import Subcampaign
 from classes.timeband import Timeband
 from classes.wantedness_info import WantednessInfo
+from zzz_ordersTools import SgltChannelMapping
 from zzz_tools import check_cannon_columns, Collection, getTimebandId, get_substring_between_parentheses, export_df
 
 
@@ -50,7 +51,7 @@ def getProcessedScheduleDf(df_scheduleOrg: pd.DataFrame, df_channelsMapping: pd.
 
 
 class Schedule(iDataFrameable):
-    def __init__(self, source_path: str, df: pd.DataFrame, schedule_breaks: Collection, schedule_info: str):
+    def __init__(self, source_path: str, df: pd.DataFrame, schedule_breaks: Collection[ScheduleBreak], schedule_info: str):
         self.source_path: str = source_path
         self.df: pd.DataFrame = df
         self.schedule_breaks: Collection = schedule_breaks
@@ -102,6 +103,18 @@ class Schedule(iDataFrameable):
         export_path = export_df(df, "schedule - minerwa", file_type=ENUM.FileType.CSV)
         return export_path
 
+    def get_breaks_by_status(self, wanted:bool, booked:bool , supplier:ENUM.Supplier)->List[ScheduleBreak]:
+        breaks = []
+        for schedule_break in self.schedule_breaks.values():
+            if schedule_break.break_info.block_id == 15107428739 :
+                print("debug")
+            if schedule_break.status_info.get_is_wanted == wanted :
+                if schedule_break.status_info.is_booked == booked :
+                    break_supplier = schedule_break.break_info.get_supplier
+                    if break_supplier == supplier.value:
+                        breaks.append(schedule_break)
+        return breaks
+
 
 def get_wantedness_info_from_row(wantedness) -> WantednessInfo:
     is_wanted: bool
@@ -132,7 +145,7 @@ def get_is_booked(boookedness:str)->bool:
         is_booked =  False
     else:
         raise MyProgramException(f"Wrong bookedness: {boookedness}")
-        return is_booked
+    return is_booked
 def get_schedule_breaks(df: pd.DataFrame) -> Collection:
     breaks = Collection()
     for index, row in df.iterrows():
@@ -172,11 +185,11 @@ def get_schedule_breaks(df: pd.DataFrame) -> Collection:
     return breaks
 
 
-def get_schedule(schedule_type: ENUM.ScheduleType, df_channelsMapping: pd.DataFrame) -> Schedule:
+def get_schedule(schedule_type: ENUM.ScheduleType) -> Schedule:
     path_schedule = CONST.get_path_schedule(schedule_type)
     df_scheduleOrg = get_df_processor(ENUM.DfProcessorType.SCHEDULE, path_schedule).get_df
 
-    df_scheduleProcessed = getProcessedScheduleDf(df_scheduleOrg, df_channelsMapping)
+    df_scheduleProcessed = getProcessedScheduleDf(df_scheduleOrg, SgltChannelMapping.get_df)
 
     schedule_breaks = get_schedule_breaks(df_scheduleProcessed)
     schedule_info = df_scheduleOrg["scheduleInfo"][0]

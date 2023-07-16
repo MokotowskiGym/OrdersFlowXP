@@ -65,12 +65,9 @@ def process_booking(
 ) -> str:
     # print(calculate_circle_data(5, CircleDataType.PERIMETER))
 
-    df_channelsMapping = ot.get_channels_df()
 
-    schedule = get_schedule(schedule_type, df_channelsMapping)
-    booking = get_booking(
-        supplier, df_channelsMapping, booking_quality=booking_quality
-    )
+    schedule = get_schedule(schedule_type)
+    booking = get_booking(supplier,  booking_quality=booking_quality)
 
 
     subcampaigns_dict = get_subcampaigns_dict(booking.get_subcampaings_orgs_set(), schedule.get_subcampaigns())
@@ -98,7 +95,6 @@ def main():
     booking_quality: enum.BookingQuality = enum.BookingQuality.FUCKED_UP_DATES
     schedule_type: enum.ScheduleType = enum.ScheduleType.OK_4CHANNELS_1WANTED
 
-    # schedule_path = r"C:\Users\macie\PycharmProjects\MnrwOrdersFlow\project\source\1a schedule 2022-10-06 112529 Schedule czysta - wrong channels.txt"
 
     process_booking(supplier, booking_quality, schedule_type)
 

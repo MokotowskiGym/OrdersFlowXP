@@ -10,10 +10,10 @@ from zzz_tools import Collection
 def match_channel_breaks_step1_id(channel_breaks, schedule_breaks: Collection):
     channel_break: ChannelBreak
     for channel_break in channel_breaks:
-        if channel_break.break_info.blockId == CONST.PODEJRZANY_BLOK_ID:
+        if channel_break.break_info.block_id == CONST.PODEJRZANY_BLOK_ID:
             print("chuj")
-        if channel_break.break_info.blockId in schedule_breaks.keys():
-            channel_break.schedule_break = schedule_breaks[channel_break.break_info.blockId]
+        if channel_break.break_info.block_id in schedule_breaks.keys():
+            channel_break.schedule_break = schedule_breaks[channel_break.break_info.block_id]
             channel_break.match_level = ENUM.MatchLevel.ID
 
 
